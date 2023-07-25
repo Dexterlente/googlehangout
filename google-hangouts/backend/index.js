@@ -4,6 +4,7 @@ import cors from "cors";
 import { verifyToken } from "./middleware/auth.js";
 import authRoutes from "./routes/auth.js";
 import Registration from "./routes/register.js";
+import Logout from "./routes/logout.js";
 // import bodyParser from "body-parser";
 import mongoose from "mongoose";
 
@@ -22,6 +23,7 @@ app.use(cors());
 // Routes
 app.use("/", authRoutes);
 app.use("/", Registration);
+app.use("/", Logout);
 
 async function connectToMongo() {
   try {
