@@ -7,9 +7,13 @@ import Registration from "./routes/register.js";
 import Logout from "./routes/logout.js";
 // import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import http from 'http';
+import createSocketServer from './socketServer.js';
 
 dotenv.config();
 const app = express();
+app.use(cors());
+const server = http.createServer(app);
 const port = process.env.PORT || 4000;
 //mongo local db
 const mongoURI = process.env.MONGOURI
@@ -18,12 +22,20 @@ const mongoURI = process.env.MONGOURI
 app.use(express.json());
 // app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
 
 // Routes
 app.use("/", authRoutes);
 app.use("/", Registration);
 app.use("/", Logout);
+
+
+// Create the Socket.IO server
+const io = createSocketServer(server,  {
+  cors: {
+    origin: "http://localhost:5173",
+  },
+});
 
 async function connectToMongo() {
   try {
@@ -34,7 +46,7 @@ async function connectToMongo() {
     console.log('Connected to MongoDB');
 
     // connect app
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
   } catch (err) {
