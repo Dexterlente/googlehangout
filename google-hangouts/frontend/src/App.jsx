@@ -1,17 +1,22 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
+import { lazy } from "react";
+// import RegistrationPage from './pages/RegistrationPage'
+// import loginPage from './pages/loginPage'
+const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+
+
+
 function App() {
 
   return (
     <>
       <div className='font-bold'>
-      <Routes>
-            <Route path="/">
-              {/* <Route path="/" element={<MainBody />} /> */}
-              <Route path="/register" element={<Registration />} />
-              <Route path="/login" element={<Login />} />
-            </Route>                  
-          </Routes>
+            <Routes>
+                <Route path="/Registration" element={<RegistrationPage />} />
+                <Route path="/Login" element={<LoginPage />} />               
+            </Routes>
       </div>
       </>
   )

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import API_ENDPOINT from '../config.jsx'
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
+      const navigate = useNavigate();
       const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -30,6 +33,7 @@ const RegistrationPage = () => {
               const data = await response.json();
               console.log('Registration successful!', data);
               // Redirect to another page or show a success message
+              navigate('/Login');
             } else {
               const error = await response.json();
               console.error('Registration failed:', error.msg);

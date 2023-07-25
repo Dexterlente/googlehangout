@@ -3,7 +3,7 @@ import API_ENDPOINT from '../config.jsx'
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const loginPage = () => {
+const LoginPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,7 +39,7 @@ const loginPage = () => {
       };
   return (
     <div>
-    <h2>Login</h2>
+    <h2 className='text-4xl m-3'>Login</h2>
     <input
       type="email"
       placeholder="Email"
@@ -58,4 +58,4 @@ const loginPage = () => {
   )
 }
 
-export default loginPage
+export default LoginPage
