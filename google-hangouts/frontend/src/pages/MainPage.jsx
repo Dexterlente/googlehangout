@@ -9,6 +9,9 @@ import useCallStateStore from '../components/callStateStore';
 
 const MainPage = () => {
   const { state, dispatch } = useCallStateStore();
+  const { socketId } = state;
+
+
   // get the token on the cookies
   const authToken = Cookies.get('token');
   if (!authToken) {
@@ -49,7 +52,7 @@ const MainPage = () => {
 
   return (
     <div className='grid grid-cols-3'>
-            <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} />
+            <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} socketId={socketId} />
             <VideoFeed className='grid-col-span'state={state} dispatch={dispatch} />
             <Chat className='grid-col-span' state={state} dispatch={dispatch}/>
     </div>

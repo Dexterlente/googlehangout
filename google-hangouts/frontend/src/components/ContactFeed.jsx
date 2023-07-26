@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoCopy } from 'react-icons/go';
 
-const ContactFeed = () => {
+const ContactFeed = ({socketId}) => {
   return (
     <div className=' bg-[#FFD700] rounded-lg' >
         <div className='h-screen'>
@@ -17,7 +17,7 @@ const ContactFeed = () => {
               </div>
               <div>
                 <button className='rounded-2xl bg-[#E0FFFF] px-4 py-2 mr-1'>
-                      RAWEAWH:PWAHOEOWAAWE
+                {socketId}
                 </button>
                 <button className='py-2 px-4 pb-3 rounded-lg bg-[#E0FFFF]'>
                   <GoCopy size={16}/> 
