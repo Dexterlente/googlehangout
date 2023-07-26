@@ -8,6 +8,7 @@ function createSocketServer(server) {
   // Socket.IO connection handling
   io.on('connection', (socket) => {
     console.log('User is connected on socketIO server')
+
     connectedPeers.push(socket.id);
     console.log(connectedPeers);
     socket.on("disconnect", () =>{
