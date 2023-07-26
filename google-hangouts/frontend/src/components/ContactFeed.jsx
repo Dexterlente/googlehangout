@@ -2,6 +2,13 @@ import React from 'react'
 import { GoCopy } from 'react-icons/go';
 
 const ContactFeed = ({socketId}) => {
+
+
+  const handleOnClick = () => {
+    navigator.clipboard.writeText(socketId)
+    console.log('Socket ID copied:', socketId);
+
+  };
   return (
     <div className=' bg-[#FFD700] rounded-lg' >
         <div className='h-screen'>
@@ -19,7 +26,7 @@ const ContactFeed = ({socketId}) => {
                 <button className='rounded-2xl bg-[#E0FFFF] px-4 py-2 mr-1'>
                 {socketId}
                 </button>
-                <button className='py-2 px-4 pb-3 rounded-lg bg-[#E0FFFF]'>
+                <button onClick={handleOnClick} className='py-2 px-4 pb-3 rounded-lg bg-[#E0FFFF] hover:bg-yellow-500'>
                   <GoCopy size={16}/> 
                 </button>
               </div>
