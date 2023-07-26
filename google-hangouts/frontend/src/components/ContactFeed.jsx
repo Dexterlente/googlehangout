@@ -25,7 +25,7 @@ const ContactFeed = ({socketId}) => {
               </div>
             </div>
             <div className='mt-24'>
-              <input className='p-2 rounded-lg' placeholder='Input Other Peoples Code'/>
+              <input className='p-2 rounded-lg' placeholder='Input Other Persons Code'/>
             </div>
             <div className='mt-2'>
               <button className='rounded-xl bg-[#E0FFFF] px-4 py-2 mr-1'>Chat</button>
