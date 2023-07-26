@@ -7,8 +7,17 @@ const ContactFeed = ({socketId}) => {
   const handleOnClick = () => {
     navigator.clipboard.writeText(socketId)
     console.log('Socket ID copied:', socketId);
-
   };
+  const handleButtonChat = () => {
+    
+    console.log('chat button clicked');
+  };
+  const handleButtonVideo = () => {
+    
+    console.log('video button clicked');
+  };
+
+
   return (
     <div className=' bg-[#FFD700] rounded-lg' >
         <div className='h-screen'>
@@ -35,8 +44,8 @@ const ContactFeed = ({socketId}) => {
               <input className='p-2 rounded-lg' placeholder='Input Other Persons Code'/>
             </div>
             <div className='mt-2'>
-              <button className='rounded-xl bg-[#E0FFFF] px-4 py-2 mr-1'>Chat</button>
-              <button className='rounded-xl bg-[#E0FFFF] px-4 py-2 mr-1'>Video Call</button>
+              <button className='rounded-xl bg-[#E0FFFF] px-4 py-2 mr-1' onClick={handleButtonChat}>Chat</button>
+              <button className='rounded-xl bg-[#E0FFFF] px-4 py-2 mr-1' onClick={handleButtonVideo}>Video Call</button>
             </div>
         </div>
     </div>
