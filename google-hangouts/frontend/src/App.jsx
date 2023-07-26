@@ -6,6 +6,7 @@ import { lazy } from "react";
 import Chat from './components/Chat'
 const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
+import MainPage from './pages/MainPage'
 
 
 
@@ -15,9 +16,11 @@ function App() {
     <>
       <div className='font-bold'>
             <Routes>
-                <Route path='/chat' element={<Chat />} />
-                <Route path="/Registration" element={<RegistrationPage />} />
-                <Route path="/Login" element={<LoginPage />} />               
+                <Route path="/" element={<MainPage />} />
+                  <Route path='/chat' element={<Chat />} />
+                  <Route path="/Registration" element={<RegistrationPage />} />
+                  <Route path="/Login" element={<LoginPage />} /> 
+                <Route />             
             </Routes>
       </div>
       </>
