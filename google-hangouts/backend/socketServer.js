@@ -9,6 +9,11 @@ function createSocketServer(server) {
   io.on('connection', (socket) => {
     console.log('User is connected on socketIO server')
 
+      socket.on('pre-offer', data => {
+        console.log('pre-offer-came');
+        console.log(data);
+      })
+
     connectedPeers.push(socket.id);
     console.log(connectedPeers);
     socket.on("disconnect", () =>{

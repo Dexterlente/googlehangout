@@ -3,7 +3,10 @@ import io from 'socket.io-client';
 import API_ENDPOINT from '../config.jsx';
 import Cookies from 'js-cookie';
 
+let socketIO = null;
+
 const useSocket = (dispatch) => {
+   
   useEffect(() => {
     // Get the token on the cookies
     const authToken = Cookies.get('token');
@@ -15,7 +18,7 @@ const useSocket = (dispatch) => {
 
     // Connect to the Socket.IO server
     const socket = io(`${API_ENDPOINT}`, {
-      // OMG I LOOK INTO THIS PROBLEM FOR OUR MY GOD
+      // OMG I LOOK INTO THIS PROBLEM FOR HOURS MY GOD
       transports: ['websocket'],
       auth: {
         token: authToken,
@@ -24,6 +27,8 @@ const useSocket = (dispatch) => {
 
     // Handle socket events
     socket.on('connect', () => {
+    socketIO = socket;
+      console.log('a', socketIO);
       console.log('Connected to Socket.IO server');
       console.log('connect', socket.id);
       dispatch({ type: 'SET_SOCKET_ID', payload: socket.id });
@@ -41,5 +46,9 @@ const useSocket = (dispatch) => {
     };
   }, [dispatch]);
 };
+
+    export const sendPreOffer = (data) => {
+        socketIO.emit('pre-offer', data);
+    };
 
 export default useSocket;

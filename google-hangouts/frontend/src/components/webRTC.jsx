@@ -1,4 +1,4 @@
-import * as wss from './wss'
+import * as useSocket from './useSocket'
 
 export const sendPreOffer = (callType, calleePersonalCode) => {
     console.log('pre offer function executed')
@@ -8,5 +8,5 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
         callType,
         calleePersonalCode,
     };
-    wss.sendPreOffer(data);
+    useSocket.sendPreOffer(data);
 };
