@@ -10,3 +10,8 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
     };
     useSocket.sendPreOffer(data);
 };
+
+export const handlePreOffer = (data) => {
+    console.log('pre-offer arrived');
+    console.log(data);
+};

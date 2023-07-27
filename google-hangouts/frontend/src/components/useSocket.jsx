@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import io from 'socket.io-client';
 import API_ENDPOINT from '../config.jsx';
 import Cookies from 'js-cookie';
+import * as webRTC from './webRTC.jsx'
 
 let socketIO = null;
 
@@ -33,6 +34,12 @@ const useSocket = (dispatch) => {
       console.log('connect', socket.id);
       dispatch({ type: 'SET_SOCKET_ID', payload: socket.id });
     });
+
+    
+    socket.on('pre-offer', (data) => {
+        socketIO = socket;
+        webRTC.handlePreOffer(data);
+      });
 
     socket.on('message', (data) => {
       // Handle incoming messages from the server

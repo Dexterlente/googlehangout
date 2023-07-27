@@ -12,15 +12,15 @@ function createSocketServer(server) {
       socket.on('pre-offer', data => {
        const { calleePersonalCode, callType } = data;
 
-        const  connectedPeers = connectedPeers.find((peerSocketId) => {
-          peerSocketId === calleePersonalCode;
-        });
-        if (connectedPeers) {
-          const data = {
+        const connectedPeer = connectedPeers.find((peerSocketId) => 
+          peerSocketId === calleePersonalCode
+        );
+        if (connectedPeer) {
+          const data = {  
             callerSocketId: socket.id,
             callType,
           };
-          io.to(calleePersonalCode).emit('pre-offer'. data)
+          io.to(calleePersonalCode).emit('pre-offer', data);
         }
       });
 
