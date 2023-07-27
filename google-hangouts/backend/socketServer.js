@@ -10,9 +10,19 @@ function createSocketServer(server) {
     console.log('User is connected on socketIO server')
 
       socket.on('pre-offer', data => {
-        console.log('pre-offer-came');
-        console.log(data);
-      })
+       const { calleePersonalCode, callType } = data;
+
+        const  connectedPeers = connectedPeers.find((peerSocketId) => {
+          peerSocketId === calleePersonalCode;
+        });
+        if (connectedPeers) {
+          const data = {
+            callerSocketId: socket.id,
+            callType,
+          };
+          io.to(calleePersonalCode).emit('pre-offer'. data)
+        }
+      });
 
     connectedPeers.push(socket.id);
     console.log(connectedPeers);
