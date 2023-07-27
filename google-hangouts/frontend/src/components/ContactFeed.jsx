@@ -30,7 +30,8 @@ const ContactFeed = ({ socketId }) => {
   const handleButtonVideo = () => {
     
     console.log('video button clicked');
-    webRTC();
+    const callType = constants.callType.VIDEO_PERSONAL_CODE;
+    webRTC.sendPreOffer(callType, calleePersonalCode);
   };
 
 
