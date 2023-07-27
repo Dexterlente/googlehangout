@@ -1,6 +1,6 @@
 import * as useSocket from './useSocket'
 import * as constants from './constants'
-import * as ui from 'ui'
+import * as ui from './ui'
 
 let connectedUserDetails;
 
@@ -24,13 +24,6 @@ export const handlePreOffer = (data) => {
         socketId: callerSocketId,
         callType,
     };
-
-    if (
-        callType === constants.callType.CHAT_PERSONAL_CODE ||
-        callType === constants.callType.VIDEO_PERSONAL_CODE
-    ){
-        ui.showIncomingDialog(callType, acceptCallHandler, rejectCallHandler);
-    }
     
     const acceptCallHandler = () => {
         console.log('call accepted')
@@ -38,4 +31,11 @@ export const handlePreOffer = (data) => {
     const rejectCallHandler = () => {
         console.log('call rejected')
     }
+    if (
+        callType === constants.callType.CHAT_PERSONAL_CODE ||
+        callType === constants.callType.VIDEO_PERSONAL_CODE
+    ) {
+        ui.showIncomingCallDialog(callType, acceptCallHandler, rejectCallHandler);
+    }
+
 };
