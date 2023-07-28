@@ -1,5 +1,6 @@
 import * as constants from "./constants";
 import * as MainPage from '../pages/MainPage'
+import IncomingCallDialog from './IncomingCallDialog'
 
 export const showIncomingCallDialog = (
     callType,
@@ -9,5 +10,7 @@ export const showIncomingCallDialog = (
     const callTypeInfo =
       callType === constants.callType.CHAT_PERSONAL_CODE ? "Chat" : "Video";
 
-      const getIncomingCallDialog = MainPage.getIncomingCallDialog();
+      console.log('callType', callType);
+      const incomingDialog = MainPage.getIncomingCallDialog();
+
     };

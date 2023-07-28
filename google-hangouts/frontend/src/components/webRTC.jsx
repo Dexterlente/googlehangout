@@ -25,12 +25,7 @@ export const handlePreOffer = (data) => {
         callType,
     };
     
-    const acceptCallHandler = () => {
-        console.log('call accepted')
-    }
-    const rejectCallHandler = () => {
-        console.log('call rejected')
-    }
+
     if (
         callType === constants.callType.CHAT_PERSONAL_CODE ||
         callType === constants.callType.VIDEO_PERSONAL_CODE
@@ -39,3 +34,9 @@ export const handlePreOffer = (data) => {
     }
 
 };
+const acceptCallHandler = () => {
+    console.log('call accepted')
+}
+const rejectCallHandler = () => {
+    console.log('call rejected')
+}
