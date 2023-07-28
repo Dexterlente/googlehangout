@@ -29,10 +29,10 @@ function createSocketServer(server) {
     socket.on("disconnect", () =>{
         console.log('User is disconnected');
 
-        const newconnectedPeers = connectedPeers.filter((peerSocketId) => {
+        const newconnectedPeers = connectedPeers.filter((peerSocketId) => 
              // Return true for all socket IDs that are not equal to the disconnected client's socket ID
-            peerSocketId !== socket.id;
-        })
+            peerSocketId !== socket.id
+        );
          // Update the connectedPeers array to the new array, excluding the disconnected client's socket ID
         connectedPeers = newconnectedPeers;
     });

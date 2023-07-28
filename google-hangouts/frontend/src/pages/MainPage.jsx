@@ -6,6 +6,7 @@ import useCallStateStore from '../components/callStateStore';
 import useSocket from '../components/useSocket'
 import IncomingCallDialog from '../components/IncomingCallDialog';
 import * as ui from '../components/ui';
+import outgoingCallDialog from '../components/outgoingCallDialog'
 
 
 export const getIncomingCallDialog = (
@@ -18,12 +19,18 @@ export const getIncomingCallDialog = (
   setShowIncomingCall(true);
 };
 
+// export const getCallingDialog = (rejectCallHandler
+//   ) => {
+//   console.log('calling other person')
+//   setShowOutgoingCall(true);
+// };
+
  
 const MainPage = () => {
   const { state, dispatch } = useCallStateStore();
   const { socketId } = state;
   const [showIncomingCall, setShowIncomingCall] = useState(false);
-  // const [incomingCallType, setIncomingCallType] = useState("");
+  // const [showOutgoingCall, setShowOutgoingCall] = useState(false);
 
   useSocket(dispatch, setShowIncomingCall); 
 
@@ -36,6 +43,13 @@ const MainPage = () => {
     setShowIncomingCall(true); // Update the state to true when the incoming call arrives
   };
 
+  // const handleOutgoingCall = () => {
+  //   getCallingDialog(
+  //   () => {}
+  //   );
+  //   setShowOutgoingCall(true);
+  // };
+
   return (
     <div>
       {/* Conditionally render the IncomingCallDialog */}
@@ -45,7 +59,16 @@ const MainPage = () => {
           acceptCallHandler={() => {}} // Replace empty function with your actual accept call handler
           rejectCallHandler={() => {}} // Replace empty function with your actual reject call handler
         />
-      ) : (
+      ) : 
+      //  showOutgoingCall ? ( // Conditionally render the OutgoingCallDialog
+      //   <outgoingCallDialog
+      //     callTypeInfo={"VIDEO"}
+      //     rejectCallHandler={() => {
+      //       setShowOutgoingCall(false); // Function to handle canceling the outgoing call
+      //     }}
+      //   />
+      // ) : 
+      (
       <div className='grid grid-cols-3'>
                 <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} socketId={socketId} />
                 <VideoFeed className='grid-col-span'state={state} dispatch={dispatch} />

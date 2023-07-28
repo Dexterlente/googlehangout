@@ -12,5 +12,18 @@ export const showIncomingCallDialog = (
 
       console.log('callType', callType);
       const incomingDialog = MainPage.getIncomingCallDialog();
-
+      // const incomingCallDialog = MainPage.getIncomingCallDialog(
+      //   callTypeInfo,
+      //   acceptCallHandler,
+      //   rejectCallHandler
+      // );
+      // return incomingCallDialog
     };
+// cut
+
+    
+  // export const showCallingDialog = (rejectCallHandler) => {
+  //   const callingDialog = MainPage.getCallingDialog(rejectCallHandler)
+  //   console.log('showcaling dialog')
+  //   // return callingDialog
+  // }

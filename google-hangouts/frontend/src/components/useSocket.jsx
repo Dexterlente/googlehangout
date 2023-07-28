@@ -39,6 +39,7 @@ const useSocket = (dispatch, setShowIncomingCall) => {
     
     socket.on('pre-offer', (data) => {
         socketIO = socket;
+        // webRTC.sendPreOffer(setShowOutgoingCall);
         webRTC.handlePreOffer(data, setShowIncomingCall);
       });
 
