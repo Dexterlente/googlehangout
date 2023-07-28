@@ -3,10 +3,11 @@ import io from 'socket.io-client';
 import API_ENDPOINT from '../config.jsx';
 import Cookies from 'js-cookie';
 import * as webRTC from './webRTC.jsx'
+// import { getIncomingCallDialog } from '../pages/MainPage.jsx'
 
 let socketIO = null;
 
-const useSocket = (dispatch) => {
+const useSocket = (dispatch, setShowIncomingCall) => {
    
   useEffect(() => {
     // Get the token on the cookies
@@ -38,7 +39,7 @@ const useSocket = (dispatch) => {
     
     socket.on('pre-offer', (data) => {
         socketIO = socket;
-        webRTC.handlePreOffer(data);
+        webRTC.handlePreOffer(data, setShowIncomingCall);
       });
 
     socket.on('message', (data) => {
@@ -51,11 +52,12 @@ const useSocket = (dispatch) => {
       socket.disconnect();
       console.log('Disconnected from Socket.IO server');
     };
-  }, [dispatch]);
+  }, [dispatch, setShowIncomingCall]);
 };
 
     export const sendPreOffer = (data) => {
         socketIO.emit('pre-offer', data);
     };
+
 
 export default useSocket;

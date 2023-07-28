@@ -15,7 +15,7 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
     useSocket.sendPreOffer(data);
 };
 
-export const handlePreOffer = (data) => {
+export const handlePreOffer = (data, setShowIncomingCall) => {
     console.log('pre-offer arrived');
     console.log(data);
     const { callType, callerSocketId } = data;
@@ -30,7 +30,8 @@ export const handlePreOffer = (data) => {
         callType === constants.callType.CHAT_PERSONAL_CODE ||
         callType === constants.callType.VIDEO_PERSONAL_CODE
     ) {
-        ui.showIncomingCallDialog(callType, acceptCallHandler, rejectCallHandler);
+        setShowIncomingCall(true);
+        // ui.showIncomingCallDialog(callType, acceptCallHandler, rejectCallHandler);
     }
 
 };

@@ -12,10 +12,10 @@ export const getIncomingCallDialog = (
   callTypeInfo,
   acceptCallHandler,
   rejectCallHandler,
-
 ) => {
 
   console.log('get incomming call dialog')
+  setShowIncomingCall(true);
 };
 
  
@@ -24,41 +24,33 @@ const MainPage = () => {
   const { socketId } = state;
   const [showIncomingCall, setShowIncomingCall] = useState(false);
 
-  useSocket(dispatch); 
+  useSocket(dispatch, setShowIncomingCall); 
 
-  // const handleIncomingCall = () => {
-  //   setShowIncomingCall(true); // Update the state to true when the incoming call arrives
-  // };
-
-  // useEffect(() => {
-  //   // Check for incoming calls and trigger the dialog
-  //   if (showIncomingCall) {
-  //     // Use the getIncomingCallDialog function directly here:
-  //     const incomingCallDialog = getIncomingCallDialog(
-  //       callTypeInfo,
-  //       acceptCallHandler,
-  //       rejectCallHandler
-  //     );
-
-  //     // Add your logic to display the incomingCallDialog as needed
-  //   }
-  // }, [showIncomingCall]);
-
+  const handleIncomingCall = () => {
+    getIncomingCallDialog(
+      // "VIDEO", // Replace "VIDEO" with the actual call type, or pass it as a prop from the parent component
+      () => {}, // Replace empty functions with your actual accept and reject call handlers
+      () => {} // Replace empty functions with your actual accept and reject call handlers
+    );
+    setShowIncomingCall(true); // Update the state to true when the incoming call arrives
+  };
 
   return (
     <div>
-        {/* {showIncomingCall && (
+      {/* Conditionally render the IncomingCallDialog */}
+      {showIncomingCall ? (
         <IncomingCallDialog
-          callTypeInfo={callTypeInfo}
-          acceptCallHandler={acceptCallHandler}
-          rejectCallHandler={rejectCallHandler}
+          callTypeInfo={"VIDEO"} // Replace "VIDEO" with the actual call type, or pass it as a prop from the parent component
+          acceptCallHandler={() => {}} // Replace empty function with your actual accept call handler
+          rejectCallHandler={() => {}} // Replace empty function with your actual reject call handler
         />
-      )} */}
+      ) : (
       <div className='grid grid-cols-3'>
                 <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} socketId={socketId} />
                 <VideoFeed className='grid-col-span'state={state} dispatch={dispatch} />
                 <Chat className='grid-col-span' state={state} dispatch={dispatch}/>
-      </div>              
+      </div>  
+      )}            
     </div>
 
   ) 
