@@ -23,6 +23,7 @@ const MainPage = () => {
   const { state, dispatch } = useCallStateStore();
   const { socketId } = state;
   const [showIncomingCall, setShowIncomingCall] = useState(false);
+  // const [incomingCallType, setIncomingCallType] = useState("");
 
   useSocket(dispatch, setShowIncomingCall); 
 
