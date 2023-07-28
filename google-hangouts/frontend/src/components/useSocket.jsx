@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 import API_ENDPOINT from '../config.jsx';
 import Cookies from 'js-cookie';
 import * as webRTC from './webRTC.jsx'
-// import { getIncomingCallDialog } from '../pages/MainPage.jsx'
 
 let socketIO = null;
 
@@ -39,8 +38,10 @@ const useSocket = (dispatch, setShowIncomingCall) => {
     
     socket.on('pre-offer', (data) => {
         socketIO = socket;
-        // webRTC.sendPreOffer(setShowOutgoingCall);
+        // webRTC.sendPreOffer(data, setShowOutgoingCall);
+        // console.log(data);
         webRTC.handlePreOffer(data, setShowIncomingCall);
+        console.log(data);
       });
 
     socket.on('message', (data) => {
