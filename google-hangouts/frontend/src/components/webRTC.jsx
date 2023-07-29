@@ -52,11 +52,11 @@ export const handlePreOffer = (data, setShowIncomingCall) => {
     }
 
 };
-const acceptCallHandler = () => {
+export const acceptCallHandler = () => {
     console.log('call accepted')
     sendPreOfferAnswer(constants.preOfferAnswer.CALL_ACCEPTED);
 }
-const rejectCallHandler = () => {
+export const rejectCallHandler = () => {
     console.log('call rejected')
     sendPreOfferAnswer(constants.preOfferAnswer.CALL_REJECTED);
 }

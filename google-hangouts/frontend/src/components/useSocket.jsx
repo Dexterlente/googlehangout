@@ -65,8 +65,8 @@ const useSocket = (dispatch, setShowIncomingCall) => {
         socketIO.emit('pre-offer', data);
     };
 
-    // export const sendPreOfferAnswer = () => {
-    //   socketIO.emit('pre-offer-answer', data);
-    // }
+    export const sendPreOfferAnswer = (data) => {
+      socketIO.emit('pre-offer-answer', data);
+    }
 
 export default useSocket;
