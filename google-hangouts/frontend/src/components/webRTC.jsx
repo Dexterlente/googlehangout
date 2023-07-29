@@ -1,14 +1,17 @@
 import * as useSocket from './useSocket'
 import * as constants from './constants'
 import * as ui from './ui'
+import * as MainPage from '../pages/MainPage'
+
 
 let connectedUserDetails;
 
 export const sendPreOffer = (callType, calleePersonalCode) => {
+
     console.log('pre offer function executed')
     console.log(callType);
     console.log(calleePersonalCode);
-    // console.log(setShowOutgoingCall);
+    
     // for caller dialog execution
     connectedUserDetails = {
         callType,
@@ -18,17 +21,15 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
     if (callType === constants.callType.CHAT_PERSONAL_CODE ||
          callType === constants.callType.VIDEO_PERSONAL_CODE) {
         // reject only button if caller side
-
+    // setShowOutgoingCall(true);
     const data = {
         callType,
         calleePersonalCode,
     };
-
-    // ui.showIncomingCallDialog(callingDialogRejectCallHandler);
+    
     useSocket.sendPreOffer(data);
-    // setShowOutgoingCall(true);
-    }
 
+    }
 };
 
 export const handlePreOffer = (data, setShowIncomingCall) => {
@@ -47,16 +48,28 @@ export const handlePreOffer = (data, setShowIncomingCall) => {
         callType === constants.callType.VIDEO_PERSONAL_CODE
     ) {
         setShowIncomingCall(true);
-        // ui.showIncomingCallDialog(callType, acceptCallHandler, rejectCallHandler);
+    
     }
 
 };
 const acceptCallHandler = () => {
     console.log('call accepted')
+    sendPreOfferAnswer(constants.preOfferAnswer.CALL_ACCEPTED);
 }
 const rejectCallHandler = () => {
     console.log('call rejected')
+    sendPreOfferAnswer(constants.preOfferAnswer.CALL_REJECTED);
 }
+
 const callingDialogRejectCallHandler = () => {
     console.log('Rejecting the call');
+}
+
+// anwer of accepting 
+const sendPreOfferAnswer = (preOfferAnswer) =>{
+    const data = {
+        callerSocketId: connectedUserDetails.socketId,
+        preOfferAnswer
+    }
+    useSocket.sendPreOfferAnswer(data);
 }

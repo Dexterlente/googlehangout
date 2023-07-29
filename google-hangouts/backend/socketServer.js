@@ -24,6 +24,11 @@ function createSocketServer(server) {
         }
       });
 
+      socket.on('pre-offer-answer',(data) => {
+        console.log('pre offer answer came');
+        console.log(data);
+      });
+
     connectedPeers.push(socket.id);
     console.log(connectedPeers);
     socket.on("disconnect", () =>{

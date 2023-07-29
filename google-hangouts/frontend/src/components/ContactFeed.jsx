@@ -3,7 +3,7 @@ import { GoCopy } from 'react-icons/go';
 import * as webRTC from './webRTC';
 import * as constants from './constants';
 
-const ContactFeed = ({ socketId }) => {
+const ContactFeed = ({ socketId, toggleOutgoingCallDialog }) => {
   const [calleePersonalCode, setCalleePersonalCode] = useState('');
 
   const handleOnClick = () => {
@@ -22,18 +22,30 @@ const ContactFeed = ({ socketId }) => {
     console.log('chat button clicked');
 
     const callType = constants.callType.CHAT_PERSONAL_CODE;
-   
+  //  dont trigger state change if no value on input field
+  if (calleePersonalCode.trim() !== '') {
     webRTC.sendPreOffer(callType, calleePersonalCode);
-  };
 
+    toggleOutgoingCallDialog();
+    } else {
+      console.log('Please input the personal code');
+    }
+  }
 
   const handleButtonVideo = () => {
     
     console.log('video button clicked');
     const callType = constants.callType.VIDEO_PERSONAL_CODE;
-    webRTC.sendPreOffer(callType, calleePersonalCode);
-  };
 
+    //  dont trigger state change if no value on input field
+    if (calleePersonalCode.trim() !== '') {
+    webRTC.sendPreOffer(callType, calleePersonalCode);
+
+    toggleOutgoingCallDialog();
+  } else {
+    console.log('Please input the personal code');
+  }
+}
 
   return (
     <div className=' bg-[#FFD700] rounded-lg' >

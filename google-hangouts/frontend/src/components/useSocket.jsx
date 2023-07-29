@@ -44,10 +44,14 @@ const useSocket = (dispatch, setShowIncomingCall) => {
         console.log(data);
       });
 
-    socket.on('message', (data) => {
-      // Handle incoming messages from the server
-      console.log('Received message:', data);
-    });
+    // socket.on("pre-offer-answer", (data) => {
+    //   webRTC.handlePreOfferAnswer(data);
+    // });
+
+    // socket.on('message', (data) => {
+    //   // Handle incoming messages from the server
+    //   console.log('Received message:', data);
+    // });
 
     // Clean up the socket connection when the component unmounts
     return () => {
@@ -61,5 +65,8 @@ const useSocket = (dispatch, setShowIncomingCall) => {
         socketIO.emit('pre-offer', data);
     };
 
+    // export const sendPreOfferAnswer = () => {
+    //   socketIO.emit('pre-offer-answer', data);
+    // }
 
 export default useSocket;

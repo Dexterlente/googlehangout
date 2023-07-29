@@ -8,7 +8,6 @@ import IncomingCallDialog from '../components/IncomingCallDialog';
 import * as ui from '../components/ui';
 import OutgoingCallDialog from '../components/OutgoingCallDialog'
 
-
 export const getIncomingCallDialog = (
   callTypeInfo,
   acceptCallHandler,
@@ -24,7 +23,22 @@ export const getCallingDialog = (rejectCallHandler
   console.log('calling other person')
   setShowOutgoingCall(true);
 };
+// const [showIncomingCallDialog, setShowIncomingCallDialog] = useState(false);
 
+// // Function to handle accepting the call
+// const handleAcceptCall = () => {
+//   // Perform the necessary actions when the call is accepted
+//   console.log('Call accepted');
+//   webRTC.acceptCallHandler(); // Call the acceptCallHandler from webRTC module
+//   setShowIncomingCallDialog(false); 
+// };
+// // Function to handle rejecting the call
+// const handleRejectCall = () => {
+//   // Perform the necessary actions when the call is rejected
+//   console.log('Call rejected');
+//   webRTC.rejectCallHandler(); // Call the rejectCallHandler from webRTC module
+//   setShowIncomingCallDialog(false);
+// };
  
 const MainPage = () => {
   const { state, dispatch } = useCallStateStore();
@@ -43,11 +57,8 @@ const MainPage = () => {
     setShowIncomingCall(true); // Update the state to true when the incoming call arrives
   };
 
-  const handleOutgoingCall = () => {
-    getCallingDialog(
-    () => {}
-    );
-    setShowOutgoingCall(true);
+  const toggleOutgoingCallDialog = () => {
+    setShowOutgoingCall((prevShowOutgoingCall) => !prevShowOutgoingCall);
   };
 
   return (
@@ -61,7 +72,7 @@ const MainPage = () => {
         />
       ) : 
        showOutgoingCall ? ( // Conditionally render the OutgoingCallDialog
-        <OutgoingCallDialog
+        <OutgoingCallDialog setShowOutgoingCall={setShowOutgoingCall}
           // callTypeInfo={"VIDEO"}
           // rejectCallHandler={() => {
           //   setShowOutgoingCall(false); // Function to handle canceling the outgoing call
@@ -70,7 +81,7 @@ const MainPage = () => {
       ) : 
       (
       <div className='grid grid-cols-3'>
-                <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} socketId={socketId} />
+                <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} socketId={socketId} toggleOutgoingCallDialog={toggleOutgoingCallDialog}/>
                 <VideoFeed className='grid-col-span'state={state} dispatch={dispatch} />
                 <Chat className='grid-col-span' state={state} dispatch={dispatch}/>
       </div>  

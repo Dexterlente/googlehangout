@@ -1,6 +1,7 @@
 import React from 'react';
 
 const IncomingCallDialog = ({ callTypeInfo, acceptCallHandler, rejectCallHandler }) => {
+
   return (
     <div className="incoming-call-dialog">
       {/* Your dialog content goes here */}
