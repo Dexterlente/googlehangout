@@ -39,16 +39,13 @@ const MainPage = () => {
   useSocket(dispatch, setShowIncomingCall, setShowOutgoingCall); 
 
   const handleIncomingCall = () => {
-    getIncomingCallDialog(
-      // "VIDEO", // Replace "VIDEO" with the actual call type, or pass it as a prop from the parent component
-      () => {}, // Replace empty functions with your actual accept and reject call handlers
-      () => {} // Replace empty functions with your actual accept and reject call handlers
-    );
+    getIncomingCallDialog();
     setShowIncomingCall(true); // Update the state to true when the incoming call arrives
   };
 
   const toggleOutgoingCallDialog = () => {
     setShowOutgoingCall((prevShowOutgoingCall) => !prevShowOutgoingCall);
+    // setShowIncomingCall(false);
   };
 
   // Function to handle accepting the call
