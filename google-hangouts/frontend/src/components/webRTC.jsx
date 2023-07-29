@@ -81,6 +81,7 @@ export const handlePreOfferAnswer = (data, setShowOutgoingCall) => {
 
     if (preOfferAnswer === constants.preOfferAnswer.CALLEE_NOT_FOUND){
         //callee is not found
+        console.log('Callee not found');
     }
     if (preOfferAnswer === constants.preOfferAnswer.CALL_UNAVAILABLE){
         //not available cannot connect

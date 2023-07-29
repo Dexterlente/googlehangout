@@ -22,6 +22,11 @@ function createSocketServer(server) {
             callType,
           };
           io.to(calleePersonalCode).emit('pre-offer', data);
+        } else {
+          const data = {
+            preOfferAnswer: 'CALLEE_NOT_FOUND',
+          }
+          io.to(socket.id).emit('pre-offer-answer', data);
         }
       });
 
