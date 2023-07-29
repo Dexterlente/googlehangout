@@ -7,6 +7,7 @@ function createSocketServer(server) {
   let connectedPeers = [];
   // Socket.IO connection handling
   io.on('connection', (socket) => {
+  
     console.log('User is connected on socketIO server')
 
       socket.on('pre-offer', data => {
@@ -24,10 +25,18 @@ function createSocketServer(server) {
         }
       });
 
-      socket.on('pre-offer-answer',(data) => {
+      socket.on('pre-offer-answer', (data) => {
         console.log('pre offer answer came');
         console.log(data);
-      });
+        const connectedPeer = connectedPeers.find((peerSocketId) => 
+        peerSocketId === data.callerSocketId
+  
+      );
+
+        if (connectedPeer){
+          io.to(data.callerSocketId).emit('pre-offer-answer', data);
+        }
+    });
 
     connectedPeers.push(socket.id);
     console.log(connectedPeers);

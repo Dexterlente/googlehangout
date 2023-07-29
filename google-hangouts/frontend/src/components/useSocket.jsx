@@ -6,7 +6,7 @@ import * as webRTC from './webRTC.jsx'
 
 let socketIO = null;
 
-const useSocket = (dispatch, setShowIncomingCall) => {
+const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall) => {
    
   useEffect(() => {
     // Get the token on the cookies
@@ -44,9 +44,10 @@ const useSocket = (dispatch, setShowIncomingCall) => {
         console.log(data);
       });
 
-    // socket.on("pre-offer-answer", (data) => {
-    //   webRTC.handlePreOfferAnswer(data);
-    // });
+    socket.on("pre-offer-answer", (data) => {
+      webRTC.handlePreOfferAnswer(data, setShowOutgoingCall);
+      console.log(data);
+    });
 
     // socket.on('message', (data) => {
     //   // Handle incoming messages from the server
@@ -58,13 +59,13 @@ const useSocket = (dispatch, setShowIncomingCall) => {
       socket.disconnect();
       console.log('Disconnected from Socket.IO server');
     };
-  }, [dispatch, setShowIncomingCall]);
+  }, [dispatch, setShowIncomingCall, setShowOutgoingCall]);
 };
 
     export const sendPreOffer = (data) => {
         socketIO.emit('pre-offer', data);
     };
-
+// passing to server
     export const sendPreOfferAnswer = (data) => {
       socketIO.emit('pre-offer-answer', data);
     }

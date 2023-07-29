@@ -1,12 +1,19 @@
 import React from 'react';
+// 
+const OutgoingCallDialog = ({ setShowOutgoingCall }) => {
 
-const OutgoingCallDialog = () => {
+  const handleCancelCall = () => {
+    // Perform the necessary actions when the user cancels the outgoing call
+    console.log('Call cancelled');
+    setShowOutgoingCall(false); // Set the showOutgoingCall state to false
+  };
+
   return (
     <div className="incoming-call-dialog">
-      {/* Your dialog content goes here */}
+      Your dialog content goes here
       <h2>Outgoing Call</h2>
       <p>Call Type: </p>
-      <button>Reject</button>
+      <button onClick={handleCancelCall}>Reject</button>
     </div>
   );
 };

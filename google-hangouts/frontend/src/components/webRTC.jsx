@@ -73,3 +73,24 @@ const sendPreOfferAnswer = (preOfferAnswer) =>{
     }
     useSocket.sendPreOfferAnswer(data);
 }
+
+export const handlePreOfferAnswer = (data, setShowOutgoingCall) => {
+    const { preOfferAnswer } = data;
+    console.log('data back to caller');
+    console.log(data);
+
+    if (preOfferAnswer === constants.preOfferAnswer.CALLEE_NOT_FOUND){
+        //callee is not found
+    }
+    if (preOfferAnswer === constants.preOfferAnswer.CALL_UNAVAILABLE){
+        //not available cannot connect
+    }
+    if (preOfferAnswer === constants.preOfferAnswer.CALL_REJECTED){
+        // the call is rejected by the callee
+    }
+    if (preOfferAnswer === constants.preOfferAnswer.CALL_ACCEPTED){
+        // send webRTC offer
+    } {
+        setShowOutgoingCall(false);
+    }
+}

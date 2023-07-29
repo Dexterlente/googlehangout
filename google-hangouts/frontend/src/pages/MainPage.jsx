@@ -8,6 +8,8 @@ import IncomingCallDialog from '../components/IncomingCallDialog';
 import * as ui from '../components/ui';
 import OutgoingCallDialog from '../components/OutgoingCallDialog'
 import * as webRTC from '../components/webRTC'
+import * as constants from '../components/constants'
+
 
 export const getIncomingCallDialog = (
   callTypeInfo,
@@ -34,7 +36,7 @@ const MainPage = () => {
   const [showOutgoingCall, setShowOutgoingCall] = useState(false);
   // const [showIncomingCallDialog, setShowIncomingCallDialog] = useState(false);
 
-  useSocket(dispatch, setShowIncomingCall); 
+  useSocket(dispatch, setShowIncomingCall, setShowOutgoingCall); 
 
   const handleIncomingCall = () => {
     getIncomingCallDialog(
@@ -53,14 +55,14 @@ const MainPage = () => {
 const handleAcceptCall = () => {
   // Perform the necessary actions when the call is accepted
   console.log('Call accepted');
-  webRTC.acceptCallHandler(); // Call the acceptCallHandler from webRTC module
-  setShowIncomingCall(false); 
+  webRTC.acceptCallHandler();
+  setShowIncomingCall(false);
 };
 // Function to handle rejecting the call
 const handleRejectCall = () => {
   // Perform the necessary actions when the call is rejected
   console.log('Call rejected');
-  webRTC.rejectCallHandler(); // Call the rejectCallHandler from webRTC module
+  webRTC.rejectCallHandler();
   setShowIncomingCall(false);
 };
  
@@ -76,7 +78,7 @@ const handleRejectCall = () => {
         />
       ) : 
        showOutgoingCall ? ( // Conditionally render the OutgoingCallDialog
-        <OutgoingCallDialog setShowOutgoingCall={setShowOutgoingCall}
+        <OutgoingCallDialog setShowOutgoingCall={toggleOutgoingCallDialog}
           // callTypeInfo={"VIDEO"}
           // rejectCallHandler={() => {
           //   setShowOutgoingCall(false); // Function to handle canceling the outgoing call
