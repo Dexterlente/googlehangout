@@ -85,6 +85,7 @@ export const handlePreOfferAnswer = (data, setShowOutgoingCall) => {
     }
     if (preOfferAnswer === constants.preOfferAnswer.CALL_UNAVAILABLE){
         //not available cannot connect
+        console.log('Call unavailable');
     }
     if (preOfferAnswer === constants.preOfferAnswer.CALL_REJECTED){
         // the call is rejected by the callee
