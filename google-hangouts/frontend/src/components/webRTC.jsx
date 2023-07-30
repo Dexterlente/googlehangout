@@ -74,7 +74,7 @@ const sendPreOfferAnswer = (preOfferAnswer) =>{
     useSocket.sendPreOfferAnswer(data);
 }
 
-export const handlePreOfferAnswer = (data, setShowOutgoingCall) => {
+export const handlePreOfferAnswer = (data, setShowOutgoingCall, setCallAccepted) => {
     const { preOfferAnswer } = data;
     console.log('data back to caller');
     console.log(data);
@@ -92,6 +92,10 @@ export const handlePreOfferAnswer = (data, setShowOutgoingCall) => {
     }
     if (preOfferAnswer === constants.preOfferAnswer.CALL_ACCEPTED){
         // send webRTC offer
+        const callType = connectedUserDetails.callType
+        console.log('THIS IS THE CALLTYPE', callType);
+        setCallAccepted(true);
+        // onCallAccepted(callType);
     } {
         setShowOutgoingCall(false);
     }
