@@ -5,7 +5,7 @@ const OutgoingCallDialog = ({ setShowOutgoingCall }) => {
   const handleCancelCall = () => {
     // Perform the necessary actions when the user cancels the outgoing call
     console.log('Call cancelled');
-    setShowOutgoingCall(false); // Set the showOutgoingCall state to false
+    // setShowOutgoingCall(false); // Set the showOutgoingCall state to false
   };
 
   return (
@@ -14,6 +14,7 @@ const OutgoingCallDialog = ({ setShowOutgoingCall }) => {
       <h2>Outgoing Call</h2>
       <p>Call Type: </p>
       <button onClick={handleCancelCall}>Reject</button>
+      {/* <button >Reject</button> */}
     </div>
   );
 };

@@ -66,6 +66,12 @@ const handleRejectCall = () => {
   setShowIncomingCall(false);
 };
 
+// const handleRejectingCall = () => {
+//   console.log('Call rejecting');
+//   // webRTC.callingDialogRejectCallHandler();
+//   setShowOutgoingCall(false);
+// }
+
 const onCallAccepted = (callType) => {
   // Perform any necessary actions when the call is accepted, based on the callType
   console.log('Call accepted with callType:', callType);

@@ -63,6 +63,7 @@ export const rejectCallHandler = () => {
 
 const callingDialogRejectCallHandler = () => {
     console.log('Rejecting the call');
+    sendPreOffer(constants.preOfferAnswer.CALL_REJECTED);
 }
 
 // anwer of accepting 
