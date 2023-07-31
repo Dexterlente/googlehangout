@@ -25,7 +25,7 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
         token: authToken,
       },
     });
-
+    // webRTC.getLocalPreview(getLocalPreview);
     // Handle socket events
     socket.on('connect', () => {
     socketIO = socket;

@@ -2,9 +2,26 @@ import * as useSocket from './useSocket'
 import * as constants from './constants'
 import * as ui from './ui'
 import * as MainPage from '../pages/MainPage'
+// import useCallStateStore from './callStateStore'
 
+// const { dispatch } = useCallStateStore();
 
 let connectedUserDetails;
+
+// const defaultConstrains = {
+//     audio: true,
+//     video: true
+// }
+// // getting mic and camera
+// export const getLocalPreview = () => {
+//     navigator.mediaDevices.getUserMedia(defaultConstrains) // it was a promise
+//     .then((stream) => {
+//         dispatch({ type: 'SET_LOCAL_STREAM', payload: stream });
+//     }).catch((err) => {
+//         console.log('something goes wrong on camera')
+//         console.log(err);
+//     })
+// }
 
 export const sendPreOffer = (callType, calleePersonalCode) => {
 

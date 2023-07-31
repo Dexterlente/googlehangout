@@ -22,6 +22,7 @@ const callStateReducer = (state, action) => {
         socketId: action.payload,
       };
     case 'SET_LOCAL_STREAM':
+      console.log('SET_LOCAL_STREAM - Payload:', action.payload);
       return {
         ...state,
         localStream: action.payload,
