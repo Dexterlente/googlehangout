@@ -5,11 +5,13 @@ import ContactFeed from '../components/ContactFeed'
 import useCallStateStore from '../components/callStateStore';
 import useSocket from '../components/useSocket'
 import IncomingCallDialog from '../components/IncomingCallDialog';
-import * as ui from '../components/ui';
 import OutgoingCallDialog from '../components/OutgoingCallDialog'
 import * as webRTC from '../components/webRTC'
 import * as constants from '../components/constants'
 import AcceptedCallComponent from '../components/AcceptedCallComponent'
+// import PeerConnectionManager from '../components/PeerConnectionManager';
+import store from '../components/store'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export const getIncomingCallDialog = (
@@ -31,11 +33,14 @@ export const getCallingDialog = (rejectCallHandler
 
 
 const MainPage = () => {
-  const { state, dispatch } = useCallStateStore();
-  const { socketId } = state;
+  const socketId = useSelector(state => state.socketId);
+  const dispatch = useDispatch();
+  // const { state, dispatch } = useCallStateStore();
+  // const { socketId } = state;
   const [showIncomingCall, setShowIncomingCall] = useState(false);
   const [showOutgoingCall, setShowOutgoingCall] = useState(false);
   const [callAccepted, setCallAccepted] = useState(false);
+  // const { createPeerConnection } = PeerConnectionManager();
 
   useSocket(dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted); 
 
@@ -54,6 +59,7 @@ const handleAcceptCall = () => {
   // Perform the necessary actions when the call is accepted
   console.log('Call accepted');
   webRTC.acceptCallHandler();
+  // createPeerConnection();
   setShowIncomingCall(false);
   setCallAccepted(true);
   webRTC.acceptCallHandler(onCallAccepted);
@@ -66,11 +72,6 @@ const handleRejectCall = () => {
   setShowIncomingCall(false);
 };
 
-// const handleRejectingCall = () => {
-//   console.log('Call rejecting');
-//   // webRTC.callingDialogRejectCallHandler();
-//   setShowOutgoingCall(false);
-// }
 
 const onCallAccepted = (callType) => {
   // Perform any necessary actions when the call is accepted, based on the callType
@@ -99,9 +100,9 @@ const onCallAccepted = (callType) => {
       :
       (
       <div className='grid grid-cols-3'>
-                <ContactFeed className='grid-col-span' state={state} dispatch={dispatch} socketId={socketId} toggleOutgoingCallDialog={toggleOutgoingCallDialog}/>
-                <VideoFeed className='grid-col-span'state={state} dispatch={dispatch} />
-                <Chat className='grid-col-span' state={state} dispatch={dispatch}/>
+                <ContactFeed className='grid-col-span' dispatch={dispatch} socketId={socketId} toggleOutgoingCallDialog={toggleOutgoingCallDialog}/>
+                <VideoFeed className='grid-col-span' dispatch={dispatch} />
+                <Chat className='grid-col-span' dispatch={dispatch}/>
       </div>  
       )}          
     </div>

@@ -1,11 +1,15 @@
 import React, {useEffect, useRef, useState } from 'react'
 import useCallStateStore from './callStateStore';
+import store from './store'
+import { useSelector, useDispatch } from 'react-redux';
 
 const VideoFeed = () => {
   const videoRef = useRef(null);
-  const { state, dispatch } = useCallStateStore();
-  const { localStream } = state;
-  const [cameraRequested, setCameraRequested] = useState(true); // change to false to work
+  const localStream = useSelector(state => state.localStream);
+  const dispatch = useDispatch();
+  // const { state, dispatch } = useCallStateStore();
+  // const { localStream } = state;
+  const [cameraRequested, setCameraRequested] = useState(false); // change to false to work
 
   const defaultConstrains = {
     audio: true,
@@ -17,7 +21,7 @@ const VideoFeed = () => {
       setCameraRequested(true);
       navigator.mediaDevices.getUserMedia(defaultConstrains)
         .then((stream) => {
-          dispatch({ type: 'SET_LOCAL_STREAM', payload: stream });
+          store.dispatch({ type: 'SET_LOCAL_STREAM', payload: stream });
         })
         .catch((err) => {
           console.log('Something went wrong on camera');
@@ -26,7 +30,7 @@ const VideoFeed = () => {
     }
   };
 
-
+  
 
   useEffect(() => {
     if (localStream && videoRef.current) {

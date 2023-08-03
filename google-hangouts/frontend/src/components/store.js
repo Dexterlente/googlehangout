@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+
+import { configureStore } from '@reduxjs/toolkit';
 import * as constants from "./constants.jsx";
 
 const initialState = {
@@ -8,11 +9,10 @@ const initialState = {
   screenSharingActive: false,
   screenSharingStream: null,
   allowConnectionsFromStrangers: false,
-  // connectedUserDetails: null,
   callState: constants.callState.CALL_AVAILABLE_ONLY_CHAT,
 };
 
-const callStateReducer = (state, action) => {
+const callStateReducer = (state = initialState, action) => {
   console.log(state); 
   console.log('Action:', action);
   switch (action.type) {
@@ -58,10 +58,8 @@ const callStateReducer = (state, action) => {
   }
 };
 
-const useCallStateStore = () => {
-  const [state, dispatch] = useReducer(callStateReducer, initialState);
+const store = configureStore({
+    reducer: callStateReducer,
+  });
 
-  return { state, dispatch };
-};
-
-export default useCallStateStore;
+export default store;
