@@ -3,6 +3,8 @@ import io from 'socket.io-client';
 import API_ENDPOINT from '../config.jsx';
 import Cookies from 'js-cookie';
 import * as webRTC from './webRTC.jsx'
+import * as constants from './constants.jsx'
+import store from './store';
 
 let socketIO = null;
 
@@ -32,7 +34,7 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
       console.log('a', socketIO);
       console.log('Connected to Socket.IO server');
       console.log('connect', socket.id);
-      dispatch({ type: 'SET_SOCKET_ID', payload: socket.id });
+      store.dispatch({ type: 'SET_SOCKET_ID', payload: socket.id });
     });
 
     
@@ -49,10 +51,17 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
       console.log(data);
     });
 
-    // socket.on('message', (data) => {
-    //   // Handle incoming messages from the server
-    //   console.log('Received message:', data);
-    // });
+    socket.on("webRTC-signaling", (data) => {
+      console.log('listener webrtc signal')
+      console.log(data);
+      switch (data.type) {
+        case constants.webRTCSignaling.OFFER:
+          webRTC.handleWebRTCOffer(data);
+          break;
+        default:
+          return;        
+      }
+    })
 
     // Clean up the socket connection when the component unmounts
     return () => {
@@ -68,6 +77,10 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
 // passing to server
     export const sendPreOfferAnswer = (data) => {
       socketIO.emit('pre-offer-answer', data);
+    }
+
+    export const sendDataUsingWebRTCSignaling= (data) => {
+      socketIO.emit('webRTC-signaling', data);
     }
 
 export default useSocket;

@@ -43,6 +43,19 @@ function createSocketServer(server) {
         }
     });
 
+      socket.on('webRTC-signaling', (data) =>{
+        const { connectedUserSocketId } = data;
+
+        const connectedPeer = connectedPeers.find((peerSocketId) => 
+        peerSocketId === connectedUserSocketId
+        );
+
+        if (connectedPeer) {
+          io.to(connectedUserSocketId).emit('webRTC-signaling', data);
+        }
+
+      });
+
     connectedPeers.push(socket.id);
     console.log(connectedPeers);
     socket.on("disconnect", () =>{
