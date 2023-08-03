@@ -95,7 +95,7 @@ const onCallAccepted = (callType) => {
           //   setShowOutgoingCall(false); // Function to handle canceling the outgoing call
           // }}
         />
-      ) : callAccepted ? ( <AcceptedCallComponent /> 
+      // ) : callAccepted ? ( <AcceptedCallComponent /> 
       ) 
       :
       (

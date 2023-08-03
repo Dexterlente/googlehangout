@@ -37,11 +37,11 @@ const VideoFeed = () => {
       videoRef.current.srcObject = localStream;
 
       // Play the video only if it's not already playing
-      if (videoRef.current.paused) {
-        videoRef.current.play().catch((error) => {
-          console.log('Error playing video:', error);
-        });
-      }
+      // if (videoRef.current.paused) {
+      //   videoRef.current.play().catch((error) => {
+      //     console.log('Error playing video:', error);
+      //   });
+      // }
     }
   }, [localStream]);
   handleGetLocalPreview();
@@ -50,7 +50,7 @@ const VideoFeed = () => {
     <div>
           <div>
             <div>video</div>
-            <video className='border-2' ref={videoRef} autoPlay playsInline/>
+            <video className='border-2' ref={videoRef} autoPlay playsInline muted/>
         {/* Any other content you want to display */}
         </div>
   </div>

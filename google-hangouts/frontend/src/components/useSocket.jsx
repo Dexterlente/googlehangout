@@ -52,11 +52,15 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
     });
 
     socket.on("webRTC-signaling", (data) => {
-      console.log('listener webrtc signal')
-      console.log(data);
       switch (data.type) {
         case constants.webRTCSignaling.OFFER:
           webRTC.handleWebRTCOffer(data);
+          break;
+          case constants.webRTCSignaling.ANSWER:
+            webRTC.handleWebRTCAnswer(data);
+          break;
+          case constants.webRTCSignaling.ICE_CANDIDATE:
+            webRTC.handleWebRTCCandidate(data);
           break;
         default:
           return;        

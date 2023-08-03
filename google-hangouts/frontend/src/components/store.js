@@ -13,8 +13,6 @@ const initialState = {
 };
 
 const callStateReducer = (state = initialState, action) => {
-  console.log(state); 
-  console.log('Action:', action);
   switch (action.type) {
     case 'SET_SOCKET_ID':
       console.log('SET_SOCKET_ID - Payload:', action.payload);
@@ -23,7 +21,6 @@ const callStateReducer = (state = initialState, action) => {
         socketId: action.payload,
       };
     case 'SET_LOCAL_STREAM':
-      console.log('SET_LOCAL_STREAM - Payload:', action.payload);
       return {
         ...state,
         localStream: action.payload,

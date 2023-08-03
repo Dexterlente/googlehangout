@@ -4,7 +4,6 @@ import * as MainPage from '../pages/MainPage'
 import useCallStateStore from './callStateStore'
 // import PeerConnectionManager from './PeerConnectionManager';
 import store from './store.js'
-// import { getState } from './callStateStoreAccessor';
 
 
 let connectedUserDetails;
@@ -26,6 +25,11 @@ const createPeerConnection = () => {
         console.log('getting ice candidates from stun server')
         if (e.candidate) {
             // set our ice candidate on other peer
+            useSocket.sendDataUsingWebRTCSignaling({
+                connectedUserSocketId: connectedUserDetails.socketId,
+                type: constants.webRTCSignaling.ICE_CANDIDATE,
+                candidate: e.candidate,
+            });
         }
     }
     // if sucessfully connected
@@ -37,9 +41,7 @@ const createPeerConnection = () => {
     const remoteStream = new MediaStream();
       // Dispatch action to set the remote stream in the state
     store.dispatch({ type: 'SET_REMOTE_STREAM', payload: remoteStream });
-    console.log(remoteStream)
-    // store.setRemoteStream(remoteStream);
-    // store.dispatch(setRemoteStream(remoteStream));
+    console.log(remoteStream);
   
     peerConnection.ontrack = (e) => {
       remoteStream.addTrack(e.track);
@@ -163,31 +165,62 @@ const sendPreOfferAnswer = (preOfferAnswer) =>{
 
 
     //cut
-    const sendWebRTCOffer = async () => {
-        try {
-            console.log('data sucess peer connect', peerConnection);
+    // const sendWebRTCOffer = async () => {
+    //     try {
+    //         console.log('data sucess peer connect', peerConnection);
 
-            if (!peerConnection) {
-                console.log('Peer connection not ready yet. Wait for it to be set up...');
-                return;
-            }
+    //         if (!peerConnection) {
+    //             console.log('Peer connection not ready yet. Wait for it to be set up...');
+    //             return;
+    //         }
+    //     const offer = await peerConnection.createOffer();
+    //     await peerConnection.setLocalDescription(offer);
+
+    //     const data = {
+    //         connectedUserSocketId: connectedUserSocketId,
+    //         type: constants.webRTCSignaling.OFFER,
+    //         offer: offer,
+    //     };
+    
+    //     useSocket.sendDataUsingWebRTCSignaling(data);
+    //     } catch (error) {
+    //     console.error('Error creating and sending WebRTC offer:', error);
+    //     }
+    // }
+
+    const sendWebRTCOffer = async () => {
         const offer = await peerConnection.createOffer();
         await peerConnection.setLocalDescription(offer);
-
-        const data = {
-            connectedUserSocketId: connectedUserSocketId,
-            type: constants.webRTCSignaling.OFFER,
-            offer: offer,
-        };
-    
-        useSocket.sendDataUsingWebRTCSignaling(data);
-        } catch (error) {
-        console.error('Error creating and sending WebRTC offer:', error);
-        }
-    }
+        useSocket.sendDataUsingWebRTCSignaling({
+          connectedUserSocketId: connectedUserDetails.socketId,
+          type: constants.webRTCSignaling.OFFER,
+          offer: offer,
+        });
+      };
 
 
     
-export const handleWebRTCOffer = (data) => {
-    console.log('webRTC came', data);
+export const handleWebRTCOffer = async (data) => {
+    await peerConnection.setRemoteDescription(data.offer);
+    const answer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(answer);
+    useSocket.sendDataUsingWebRTCSignaling({
+        connectedUserSocketId: connectedUserDetails.socketId,
+        type: constants.webRTCSignaling.ANSWER,
+        answer: answer,
+    })
 };
+
+export const handleWebRTCAnswer = async (data) => {
+    console.log('WEBRTC ANsWER WORKS')
+    await peerConnection.setRemoteDescription(data.answer);
+};
+
+export const handleWebRTCCandidate = async (data) => {
+    console.log('handle incomming webrtc candidate')
+    try {
+        await peerConnection.addIceCandidate(data.candidate);
+    } catch (err) {
+        console.log('shit happens when trying to add receive ice candidate', err)
+    }
+}
