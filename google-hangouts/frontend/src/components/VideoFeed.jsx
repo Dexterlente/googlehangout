@@ -66,9 +66,6 @@ const VideoFeed = () => {
     }
   }, [localStream]);
 
-
-  // Dispatch the action to set the remote stream
-  // const dispatch = useDispatch();
   useEffect(() => {
     if (remoteStream && videoRefRemote.current) {
       videoRefRemote.current.srcObject = remoteStream;
@@ -85,10 +82,12 @@ const VideoFeed = () => {
         {/* Any other content you want to display */}
         </div>
         {/* render only if available */}
-        {remoteStream && (
+        {/* render only if remoteStream exists and its video track is enabled */}
+        {remoteStream && remoteStream.getVideoTracks()[0]?.enabled &&  (
         <div>
+        
          <div>Remote video</div>
-        <video className='border-2' ref={videoRefRemote} autoPlay playsInline muted/>
+        <video ref={videoRefRemote} autoPlay playsInline muted/>
         <div className='flex justify-center mt-3 align-bottom'> 
               <div className='mx-2'>
                 <button id="mic_button" onClick={handleMicButtonClick}>
@@ -104,6 +103,9 @@ const VideoFeed = () => {
         </div>
         </div>
         )}
+         {/* {remoteStream && remoteStream.getVideoTracks()[0]?.enabled === false && (
+           <div> <MdCallEnd className="text-6xl bg-red-500 rounded-full p-2"  /></div>
+         )} */}
   </div>
   )
 }

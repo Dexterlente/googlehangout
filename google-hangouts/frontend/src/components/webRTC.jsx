@@ -73,13 +73,11 @@ export const createPeerConnection = () => {
       remoteStream.addTrack(e.track);
     }
   if (
-    connectedUserDetails.callType === constants.callType.VIDEO_PERSONAL_CODE ||
-    connectedUserDetails.callType === constants.callType.VIDEO_STRANGER
+    connectedUserDetails.callType === constants.callType.VIDEO_PERSONAL_CODE
   ) 
   {
     const localStream = store.getState().localStream;
     console.log(localStream);
-    // const localStream = useCallStateStore().store.localStream
     for (const track of localStream.getTracks()) {
         peerConnection.addTrack(track, localStream);
             }
