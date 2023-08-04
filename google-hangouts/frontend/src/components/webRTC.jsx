@@ -8,7 +8,8 @@ import store from './store.js'
 
 let connectedUserDetails;
 let peerConnection;
-
+let dataChannel;
+let onDataChannelMessageCallback; 
 
     const configuration = {
     iceServers: [
@@ -17,9 +18,34 @@ let peerConnection;
         }
     ]
 }
-const createPeerConnection = () => {
+
+export const setOnDataChannelMessageCallback = (callback) => {
+    onDataChannelMessageCallback = callback;
+  };
+
+  
+
+export const createPeerConnection = () => {
     peerConnection  = new RTCPeerConnection(configuration);
     console.log('peerconnection log', peerConnection);
+
+    dataChannel = peerConnection.createDataChannel('chat');
+
+    peerConnection.ondatachannel = (e) => {
+        const dataChannel = e.channel;
+        
+        dataChannel.onopen = () => {
+            console.log('peerconnection for data channel is ready')
+        }
+        dataChannel.onmessage = (e) => {
+            console.log('message came')
+            const message = JSON.parse(e.data);
+            console.log("Received message:", message);
+            if (onDataChannelMessageCallback) {
+        onDataChannelMessageCallback(message); // Call the callback function with the received message
+      }
+        }
+    }
 
     peerConnection.onicecandidate = (e) => {
         console.log('getting ice candidates from stun server')
@@ -59,6 +85,13 @@ const createPeerConnection = () => {
             }
         }
     }
+
+export const sendMessageUsingDataChannel = (message) => {
+    // cannot send message on json format so this is needed
+    const stringifiedMessage = JSON.stringify(message);
+    dataChannel.send(stringifiedMessage);
+
+}
 
 
 export const sendPreOffer = (callType, calleePersonalCode) => {
