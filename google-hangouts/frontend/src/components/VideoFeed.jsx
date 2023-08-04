@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState } from 'react'
 import useCallStateStore from './callStateStore';
 import store from './store'
 import { useSelector, useDispatch } from 'react-redux';
+import { MdCallEnd } from 'react-icons/md';
 
 const VideoFeed = () => {
   const videoRef = useRef(null);
@@ -69,6 +70,11 @@ const VideoFeed = () => {
         <div>
          <div>Remote video</div>
         <video className='border-2' ref={videoRefRemote} autoPlay playsInline muted/>
+        <div className='flex justify-center'> 
+          <div>mute</div>
+          <div> <MdCallEnd /></div>
+          <div> on off cam</div>
+        </div>
         </div>
         )}
   </div>
