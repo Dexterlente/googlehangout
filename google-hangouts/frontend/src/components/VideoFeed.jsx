@@ -64,10 +64,13 @@ const VideoFeed = () => {
             <video className='border-2' ref={videoRef} autoPlay playsInline muted/>
         {/* Any other content you want to display */}
         </div>
+        {/* render only if available */}
+        {remoteStream && (
         <div>
          <div>Remote video</div>
         <video className='border-2' ref={videoRefRemote} autoPlay playsInline muted/>
         </div>
+        )}
   </div>
   )
 }
