@@ -3,6 +3,7 @@ import useCallStateStore from './callStateStore';
 import store from './store'
 import { useSelector, useDispatch } from 'react-redux';
 import { MdCallEnd } from 'react-icons/md';
+import { BsFillMicMuteFill , BsFillMicFill, BsCameraVideoFill, BsCameraVideoOffFill } from 'react-icons/bs';
 
 const VideoFeed = () => {
   const videoRef = useRef(null);
@@ -10,6 +11,8 @@ const VideoFeed = () => {
   const localStream = useSelector(state => state.localStream);
   const remoteStream = useSelector(state => state.remoteStream);
   const dispatch = useDispatch();
+  const [micEnabled, setMicEnabled] = useState(true);
+  const [cameraEnabled, setCameraEnabled] = useState(true);
 
   const [cameraRequested, setCameraRequested] = useState(false); // change to false to work
 
@@ -29,6 +32,22 @@ const VideoFeed = () => {
           console.log('Something went wrong on camera');
           console.log(err);
         });
+    }
+  };
+// mute or unmute
+  const handleMicButtonClick = () => {
+    const audioTrack = localStream.getAudioTracks()[0];
+    if (audioTrack) {
+      audioTrack.enabled = !micEnabled;
+      setMicEnabled(!micEnabled);
+    }
+  };
+
+  const handleCameraButtonClick = () => {
+    const videoTrack = localStream.getVideoTracks()[0];
+    if (videoTrack) {
+      videoTrack.enabled = !cameraEnabled;
+      setCameraEnabled(!cameraEnabled);
     }
   };
 
@@ -71,9 +90,17 @@ const VideoFeed = () => {
          <div>Remote video</div>
         <video className='border-2' ref={videoRefRemote} autoPlay playsInline muted/>
         <div className='flex justify-center'> 
-          <div>mute</div>
+          <div>
+            <button id="mic_button" onClick={handleMicButtonClick}>
+              {micEnabled ? <BsFillMicFill />: <BsFillMicMuteFill/>}
+            </button>
+       </div>
           <div> <MdCallEnd /></div>
-          <div> on off cam</div>
+            <div>     
+                <button id="camera_button" onClick={handleCameraButtonClick}>
+                  {cameraEnabled ? <BsCameraVideoFill /> : <BsCameraVideoOffFill />}
+                </button>
+              </div>
         </div>
         </div>
         )}
