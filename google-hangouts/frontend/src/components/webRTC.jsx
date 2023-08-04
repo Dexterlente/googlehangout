@@ -238,11 +238,30 @@ export const handleHangUp = () => {
     console.log('hanging up the call')
     const data = {
         connectedUserSocketId: connectedUserDetails.socketId,
-    }
+    };
 
     useSocket.sendUserHangedUp(data);
-}
-
+    closePeerConnectionAndResetState();
+};
+//user who did not hanged up 
 export const handleConnectedUserHangedUp = () => {
     console.log('connection hangedup')
+    closePeerConnectionAndResetState();
+};
+
+const closePeerConnectionAndResetState = () => {
+    //if peer connection exist close
+    if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+    }
+
+    if (connectedUserDetails.callType === constants.callType.VIDEO_PERSONAL_CODE) {
+        // enable video and audio if new call
+        store.getState().localStream.getVideoTracks()[0].enabled = true;
+        store.getState().localStream.getAudioTracks()[0].enabled = true;
+
+        connectedUserDetails = null;
+    }
+
 }
