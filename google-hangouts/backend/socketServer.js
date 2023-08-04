@@ -56,6 +56,17 @@ function createSocketServer(server) {
 
       });
 
+      socket.on('user-hanged-up', (data) => {
+        const { connectedUserSocketId } = data;
+
+        const connectedPeer = connectedPeers.find((peerSocketId) => 
+        peerSocketId === connectedUserSocketId
+        );
+        if (connectedPeer) {
+          io.to(connectedUserSocketId).emit('user-hanged-up');
+        }
+      })
+
     connectedPeers.push(socket.id);
     console.log(connectedPeers);
     socket.on("disconnect", () =>{

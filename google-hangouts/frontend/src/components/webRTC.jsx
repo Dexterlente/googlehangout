@@ -230,3 +230,19 @@ export const handleWebRTCCandidate = async (data) => {
         console.log('shit happens when trying to add receive ice candidate', err)
     }
 }
+
+
+// Hangup logic here
+
+export const handleHangUp = () => {
+    console.log('hanging up the call')
+    const data = {
+        connectedUserSocketId: connectedUserDetails.socketId,
+    }
+
+    useSocket.sendUserHangedUp(data);
+}
+
+export const handleConnectedUserHangedUp = () => {
+    console.log('connection hangedup')
+}

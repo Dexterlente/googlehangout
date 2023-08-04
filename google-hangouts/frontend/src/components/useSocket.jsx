@@ -51,6 +51,10 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
       console.log(data);
     });
 
+    socket.on("user-hanged-up", () => {
+      webRTC.handleConnectedUserHangedUp();
+    })
+
     socket.on("webRTC-signaling", (data) => {
       switch (data.type) {
         case constants.webRTCSignaling.OFFER:
@@ -85,6 +89,10 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
 
     export const sendDataUsingWebRTCSignaling= (data) => {
       socketIO.emit('webRTC-signaling', data);
+    }
+
+    export const sendUserHangedUp = (data) => {
+      socketIO.emit('user-hanged-up', data);
     }
 
 export default useSocket;
