@@ -81,9 +81,10 @@ const VideoFeed = () => {
             <video className='border-2' ref={videoRef} autoPlay playsInline muted/>
         {/* Any other content you want to display */}
         </div>
-        {/* render only if available */}
         {/* render only if remoteStream exists and its video track is enabled */}
-        {remoteStream && remoteStream.getVideoTracks()[0]?.enabled &&  (
+        {remoteStream && 
+        // remoteStream.getVideoTracks()[0]?.enabled &&  
+        (
         <div>
         
          <div>Remote video</div>
@@ -103,9 +104,6 @@ const VideoFeed = () => {
         </div>
         </div>
         )}
-         {/* {remoteStream && remoteStream.getVideoTracks()[0]?.enabled === false && (
-           <div> <MdCallEnd className="text-6xl bg-red-500 rounded-full p-2"  /></div>
-         )} */}
   </div>
   )
 }

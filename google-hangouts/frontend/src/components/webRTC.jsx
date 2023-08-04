@@ -117,7 +117,7 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
     }
 };
 
-export const handlePreOffer = (data, setShowIncomingCall) => {
+export const handlePreOffer = (data, setShowIncomingCall, onCallTypeReceived) => {
     console.log('pre-offer arrived');
     console.log(data);
     const { callType, callerSocketId } = data;
@@ -133,9 +133,9 @@ export const handlePreOffer = (data, setShowIncomingCall) => {
         callType === constants.callType.VIDEO_PERSONAL_CODE
     ) {
         setShowIncomingCall(true);
-    
+        
     }
-
+    onCallTypeReceived(callType);
 };
 
 export const acceptCallHandler = () => {

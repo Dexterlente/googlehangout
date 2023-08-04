@@ -8,7 +8,7 @@ import store from './store';
 
 let socketIO = null;
 
-const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted) => {
+const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived) => {
    
   useEffect(() => {
     // Get the token on the cookies
@@ -42,7 +42,7 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
         socketIO = socket;
         // webRTC.sendPreOffer(data, setShowOutgoingCall);
         // console.log(data);
-        webRTC.handlePreOffer(data, setShowIncomingCall);
+        webRTC.handlePreOffer(data, setShowIncomingCall, onCallTypeReceived);
         console.log(data);
       });
 
@@ -72,7 +72,7 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
       socket.disconnect();
       console.log('Disconnected from Socket.IO server');
     };
-  }, [dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted]);
+  }, [dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived]);
 };
 
     export const sendPreOffer = (data) => {

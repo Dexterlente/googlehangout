@@ -40,9 +40,9 @@ const MainPage = () => {
   const [showIncomingCall, setShowIncomingCall] = useState(false);
   const [showOutgoingCall, setShowOutgoingCall] = useState(false);
   const [callAccepted, setCallAccepted] = useState(false);
-  // const { createPeerConnection } = PeerConnectionManager();
+  const [callType, onCallTypeReceived] = useState(null); 
 
-  useSocket(dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted); 
+  useSocket(dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived); 
 
   const handleIncomingCall = () => {
     getIncomingCallDialog();
@@ -52,6 +52,10 @@ const MainPage = () => {
   const toggleOutgoingCallDialog = () => {
     setShowOutgoingCall((prevShowOutgoingCall) => !prevShowOutgoingCall);
     // setShowIncomingCall(false);
+  };
+  const handleIncomingCallType = (callType) => {
+    onCallTypeReceived(callType);
+    console.log(callType)
   };
 
   // Function to handle accepting the call
@@ -83,14 +87,14 @@ const onCallAccepted = (callType) => {
       {/* Conditionally render the IncomingCallDialog */}
       {showIncomingCall ? (
         <IncomingCallDialog
-          callTypeInfo={"VIDEO"} // Replace "VIDEO" with the actual call type, or pass it as a prop from the parent component
+          callTypeInfo={callType} // Replace "VIDEO" with the actual call type, or pass it as a prop from the parent component
           acceptCallHandler={handleAcceptCall} // Replace empty function with your actual accept call handler
           rejectCallHandler={handleRejectCall} // Replace empty function with your actual reject call handler
         />
       ) : 
        showOutgoingCall ? ( // Conditionally render the OutgoingCallDialog
         <OutgoingCallDialog setShowOutgoingCall={toggleOutgoingCallDialog}
-          // callTypeInfo={"VIDEO"}
+          callTypeInfo={callType}
           // rejectCallHandler={() => {
           //   setShowOutgoingCall(false); // Function to handle canceling the outgoing call
           // }}
