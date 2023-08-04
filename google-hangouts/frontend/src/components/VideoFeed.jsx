@@ -14,6 +14,7 @@ const VideoFeed = () => {
   const dispatch = useDispatch();
   const [micEnabled, setMicEnabled] = useState(true);
   const [cameraEnabled, setCameraEnabled] = useState(true);
+  const [callActive, setCallActive] = useState(true);
 
   const [cameraRequested, setCameraRequested] = useState(false); // change to false to work
 
@@ -38,6 +39,7 @@ const VideoFeed = () => {
   // handle hangup
   const handleHangUp = () => {
     webRTC.handleHangUp();
+    setCallActive(false);
   };
 // mute or unmute
   const handleMicButtonClick = () => {
@@ -91,7 +93,7 @@ const VideoFeed = () => {
         {/* Any other content you want to display */}
         </div>
         {/* render only if remoteStream exists and its video track is enabled */}
-        {remoteStream && 
+        { callActive && remoteStream && 
         // remoteStream.getVideoTracks()[0]?.enabled &&
         (
         <div>
