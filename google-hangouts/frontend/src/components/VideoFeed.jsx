@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const VideoFeed = () => {
   const videoRef = useRef(null);
+  const videoRefRemote = useRef(null);
   const localStream = useSelector(state => state.localStream);
+  const remoteStream = useSelector(state => state.remoteStream);
   const dispatch = useDispatch();
-  // const { state, dispatch } = useCallStateStore();
-  // const { localStream } = state;
+
   const [cameraRequested, setCameraRequested] = useState(false); // change to false to work
 
   const defaultConstrains = {
@@ -44,6 +45,16 @@ const VideoFeed = () => {
       // }
     }
   }, [localStream]);
+
+
+  // Dispatch the action to set the remote stream
+  // const dispatch = useDispatch();
+  useEffect(() => {
+    if (remoteStream && videoRefRemote.current) {
+      videoRefRemote.current.srcObject = remoteStream;
+    }
+  }, [remoteStream]);
+
   handleGetLocalPreview();
 
   return (
@@ -52,6 +63,10 @@ const VideoFeed = () => {
             <div>video</div>
             <video className='border-2' ref={videoRef} autoPlay playsInline muted/>
         {/* Any other content you want to display */}
+        </div>
+        <div>
+         <div>Remote video</div>
+        <video className='border-2' ref={videoRefRemote} autoPlay playsInline muted/>
         </div>
   </div>
   )
