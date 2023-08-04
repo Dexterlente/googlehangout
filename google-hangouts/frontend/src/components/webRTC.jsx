@@ -163,31 +163,6 @@ const sendPreOfferAnswer = (preOfferAnswer) =>{
     }
 
 
-
-    //cut
-    // const sendWebRTCOffer = async () => {
-    //     try {
-    //         console.log('data sucess peer connect', peerConnection);
-
-    //         if (!peerConnection) {
-    //             console.log('Peer connection not ready yet. Wait for it to be set up...');
-    //             return;
-    //         }
-    //     const offer = await peerConnection.createOffer();
-    //     await peerConnection.setLocalDescription(offer);
-
-    //     const data = {
-    //         connectedUserSocketId: connectedUserSocketId,
-    //         type: constants.webRTCSignaling.OFFER,
-    //         offer: offer,
-    //     };
-    
-    //     useSocket.sendDataUsingWebRTCSignaling(data);
-    //     } catch (error) {
-    //     console.error('Error creating and sending WebRTC offer:', error);
-    //     }
-    // }
-
     const sendWebRTCOffer = async () => {
         const offer = await peerConnection.createOffer();
         await peerConnection.setLocalDescription(offer);

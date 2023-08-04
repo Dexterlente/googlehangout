@@ -89,16 +89,16 @@ const VideoFeed = () => {
         <div>
          <div>Remote video</div>
         <video className='border-2' ref={videoRefRemote} autoPlay playsInline muted/>
-        <div className='flex justify-center'> 
-          <div>
-            <button id="mic_button" onClick={handleMicButtonClick}>
-              {micEnabled ? <BsFillMicFill />: <BsFillMicMuteFill/>}
-            </button>
-       </div>
-          <div> <MdCallEnd /></div>
-            <div>     
+        <div className='flex justify-center mt-3 align-bottom'> 
+              <div className='mx-2'>
+                <button id="mic_button" onClick={handleMicButtonClick}>
+                  {micEnabled ? <BsFillMicFill className="text-5xl bg-black rounded-full p-2" />: <BsFillMicMuteFill className="text-5xl bg-black opacity-60 rounded-full p-2"/>}
+                </button>
+          </div>
+          <div> <MdCallEnd className="text-6xl bg-red-500 rounded-full p-2"  /></div>
+            <div className='mx-2'>     
                 <button id="camera_button" onClick={handleCameraButtonClick}>
-                  {cameraEnabled ? <BsCameraVideoFill /> : <BsCameraVideoOffFill />}
+                  {cameraEnabled ? <BsCameraVideoFill className="text-5xl bg-black rounded-full p-2" /> : <BsCameraVideoOffFill className="text-5xl bg-black opacity-60 rounded-full p-2" />}
                 </button>
               </div>
         </div>
