@@ -63,7 +63,6 @@ const handleAcceptCall = () => {
   // Perform the necessary actions when the call is accepted
   console.log('Call accepted');
   webRTC.acceptCallHandler();
-  // createPeerConnection();
   setShowIncomingCall(false);
   setCallAccepted(true);
   webRTC.acceptCallHandler(onCallAccepted);

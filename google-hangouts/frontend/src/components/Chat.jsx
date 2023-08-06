@@ -33,10 +33,15 @@ const Chat = () => {
     setMessage('');
     }
   };
-
+// working on reseting chat after not active call
   useEffect(() => {
     // Set the callback for handling received messages
     webRTC.setOnDataChannelMessageCallback(handleReceivedMessage);
+
+  //     return () => {
+  //   // Cleanup function to clear chat messages when the component unmounts
+  //   setChatMessages([]);
+  // };
 
   }, []);
 
