@@ -245,7 +245,8 @@ export const handleHangUp = () => {
 };
 //user who did not hanged up 
 export const handleConnectedUserHangedUp = () => {
-    console.log('connection hangedup')
+    console.log('connection hangedup remoteside print')
+    // setCallActive(false);
     closePeerConnectionAndResetState();
 };
 
@@ -254,13 +255,14 @@ const closePeerConnectionAndResetState = () => {
     if (peerConnection) {
         peerConnection.close();
         peerConnection = null;
+        console.log('passetby')
     }
 
     if (connectedUserDetails.callType === constants.callType.VIDEO_PERSONAL_CODE) {
         // enable video and audio if new call
         store.getState().localStream.getVideoTracks()[0].enabled = true;
         store.getState().localStream.getAudioTracks()[0].enabled = true;
-
+        console.log('awawaw')
        
     }
     connectedUserDetails = null;

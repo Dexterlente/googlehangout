@@ -58,12 +58,14 @@ function createSocketServer(server) {
 
       socket.on('user-hanged-up', (data) => {
         const { connectedUserSocketId } = data;
+        console.log('got the hanger')
 
         const connectedPeer = connectedPeers.find((peerSocketId) => 
         peerSocketId === connectedUserSocketId
         );
         if (connectedPeer) {
           io.to(connectedUserSocketId).emit('user-hanged-up');
+          console.log('passing to remote')
         }
       })
 

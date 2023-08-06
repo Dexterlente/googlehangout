@@ -8,7 +8,7 @@ import store from './store';
 
 let socketIO = null;
 
-const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived) => {
+const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived, setCallActive) => {
    
   useEffect(() => {
     // Get the token on the cookies
@@ -52,7 +52,9 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
     });
 
     socket.on("user-hanged-up", () => {
-      webRTC.handleConnectedUserHangedUp();
+      webRTC.handleConnectedUserHangedUp(setCallActive, false);
+      console.log('user lang connection hanger')
+      console.log("Remote client: Connection hanged up");
     })
 
     socket.on("webRTC-signaling", (data) => {
@@ -76,7 +78,7 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
       socket.disconnect();
       console.log('Disconnected from Socket.IO server');
     };
-  }, [dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived]);
+  }, [dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAccepted, onCallTypeReceived, setCallActive]);
 };
 
     export const sendPreOffer = (data) => {
