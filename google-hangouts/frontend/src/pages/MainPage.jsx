@@ -53,6 +53,10 @@ const MainPage = () => {
     setShowOutgoingCall((prevShowOutgoingCall) => !prevShowOutgoingCall);
     // setShowIncomingCall(false);
   };
+//   const toggleIncomingCallDialog = () => {
+//   setShowIncomingCall((prevShowOutgoingCall) => !prevShowOutgoingCall);
+
+// };
   const handleIncomingCallType = (callType) => {
     onCallTypeReceived(callType);
     console.log(callType)
@@ -65,7 +69,7 @@ const handleAcceptCall = () => {
   webRTC.acceptCallHandler();
   setShowIncomingCall(false);
   setCallAccepted(true);
-  webRTC.acceptCallHandler(onCallAccepted);
+  // webRTC.acceptCallHandler(onCallAccepted);
 };
 // Function to handle rejecting the call
 const handleRejectCall = () => {
@@ -74,6 +78,13 @@ const handleRejectCall = () => {
   webRTC.rejectCallHandler();
   setShowIncomingCall(false);
 };
+const handleRejectCallOutGoing = () => {
+  // Perform the necessary actions when the call is rejected
+  // console.log('Call rejected Caller');
+  // webRTC.callingDialogRejectCallHandler();
+  setShowOutgoingCall(false);
+};
+
 
 
 const onCallAccepted = (callType) => {
@@ -89,10 +100,12 @@ const onCallAccepted = (callType) => {
           callTypeInfo={callType} // Replace "VIDEO" with the actual call type, or pass it as a prop from the parent component
           acceptCallHandler={handleAcceptCall} // Replace empty function with your actual accept call handler
           rejectCallHandler={handleRejectCall} // Replace empty function with your actual reject call handler
+          // setShowIncomingCall={toggleIncomingCallDialog}
         />
       ) : 
        showOutgoingCall ? ( // Conditionally render the OutgoingCallDialog
         <OutgoingCallDialog setShowOutgoingCall={toggleOutgoingCallDialog}
+        handleRejectCallOutGoing={handleRejectCallOutGoing}
           callTypeInfo={callType}
           // rejectCallHandler={() => {
           //   setShowOutgoingCall(false); // Function to handle canceling the outgoing call

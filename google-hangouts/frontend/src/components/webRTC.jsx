@@ -148,9 +148,16 @@ export const rejectCallHandler = () => {
     sendPreOfferAnswer(constants.preOfferAnswer.CALL_REJECTED);
 }
 
-const callingDialogRejectCallHandler = () => {
+export const callingDialogRejectCallHandler = () => {
     console.log('Rejecting the call');
-    sendPreOffer(constants.preOfferAnswer.CALL_REJECTED);
+    const data = {
+        connectedUserSocketId: connectedUserDetails.socketId
+    }
+    // sendPreOffer(constants.preOfferAnswer.CALL_REJECTED);
+    sendPreOfferAnswer(constants.preOfferAnswer.CALL_REJECTED);
+    closePeerConnectionAndResetState();
+    useSocket.sendUserHangedUp(data);
+    // setShowIncomingCall(false);
 }
 
 // anwer of accepting 
