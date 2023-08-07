@@ -15,8 +15,8 @@ const VideoFeed = () => {
   const localStream = useSelector(state => state.localStream);
   const remoteStream = useSelector(state => state.remoteStream);
   // const dispatch = useDispatch();
-  // const [micEnabled, setMicEnabled] = useState(true);
-  // const [cameraEnabled, setCameraEnabled] = useState(true);
+  const [micEnabled, setMicEnabled] = useState(true);
+  const [cameraEnabled, setCameraEnabled] = useState(true);
   const [callActive, setCallActive] = useState(true);
 
   const [cameraRequested, setCameraRequested] = useState(false); // change to false to work
@@ -40,6 +40,21 @@ const VideoFeed = () => {
     }
   };
 
+  const handleMicButtonClick = () => {
+    const audioTrack = localStream.getAudioTracks()[0];
+    if (audioTrack) {
+      audioTrack.enabled = !micEnabled;
+      setMicEnabled(!micEnabled);
+    }
+  };
+
+  const handleCameraButtonClick = () => {
+    const videoTrack = localStream.getVideoTracks()[0];
+    if (videoTrack) {
+      videoTrack.enabled = !cameraEnabled;
+      setCameraEnabled(!cameraEnabled);
+    }
+  };
 
   
 
@@ -59,7 +74,12 @@ const VideoFeed = () => {
         {/* Any other content you want to display */}
         </div>
         {/* render only if remoteStream exists and its video track is enabled */}
-        {callActive && remoteStream && <RemoteVideo stream={remoteStream} />}
+        {callActive && remoteStream && <RemoteVideo stream={remoteStream}
+        handleMicButtonClick={handleMicButtonClick}
+        handleCameraButtonClick={handleCameraButtonClick}
+        micEnabled={micEnabled}
+        cameraEnabled={cameraEnabled}
+         />}
   </div>
   )
 }

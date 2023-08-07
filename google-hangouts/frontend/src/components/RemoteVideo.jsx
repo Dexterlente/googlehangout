@@ -3,10 +3,10 @@ import { MdCallEnd } from 'react-icons/md';
 import { BsFillMicMuteFill, BsFillMicFill, BsCameraVideoFill, BsCameraVideoOffFill } from 'react-icons/bs';
 import * as webRTC from './webRTC';
 
-const RemoteVideo = ({ stream, handleHangUpLast }) => {
+const RemoteVideo = ({ stream, handleHangUpLast, handleMicButtonClick, handleCameraButtonClick, micEnabled, cameraEnabled }) => {
   const videoRefRemote = useRef(null);
-  const [micEnabled, setMicEnabled] = useState(true);
-  const [cameraEnabled, setCameraEnabled] = useState(true);
+  // const [micEnabled, setMicEnabled] = useState(true);
+  // const [cameraEnabled, setCameraEnabled] = useState(true);
   const [callActive, setCallActive] = useState(true);
 
 
@@ -52,21 +52,21 @@ const RemoteVideo = ({ stream, handleHangUpLast }) => {
       setCallActive(false);
     };
 
-  const handleMicButtonClick = () => {
-    const audioTrack = stream.getAudioTracks()[0];
-    if (audioTrack) {
-      audioTrack.enabled = !micEnabled;
-      setMicEnabled(!micEnabled);
-    }
-  };
+  // const handleMicButtonClick = () => {
+  //   const audioTrack = stream.getAudioTracks()[0];
+  //   if (audioTrack) {
+  //     audioTrack.enabled = !micEnabled;
+  //     setMicEnabled(!micEnabled);
+  //   }
+  // };
 
-  const handleCameraButtonClick = () => {
-    const videoTrack = stream.getVideoTracks()[0];
-    if (videoTrack) {
-      videoTrack.enabled = !cameraEnabled;
-      setCameraEnabled(!cameraEnabled);
-    }
-  };
+  // const handleCameraButtonClick = () => {
+  //   const videoTrack = stream.getVideoTracks()[0];
+  //   if (videoTrack) {
+  //     videoTrack.enabled = !cameraEnabled;
+  //     setCameraEnabled(!cameraEnabled);
+  //   }
+  // };
 
   const handleHangUp = () => {
     webRTC.handleHangUp();
