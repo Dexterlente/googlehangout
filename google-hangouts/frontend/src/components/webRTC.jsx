@@ -157,6 +157,7 @@ export const callingDialogRejectCallHandler = () => {
     sendPreOfferAnswer(constants.preOfferAnswer.CALL_REJECTED);
     closePeerConnectionAndResetState();
     useSocket.sendUserHangedUp(data);
+    console.log('rejected??')
     // setShowIncomingCall(false);
 }
 
@@ -255,6 +256,7 @@ export const handleConnectedUserHangedUp = () => {
     console.log('connection hangedup remoteside print')
     // setCallActive(false);
     closePeerConnectionAndResetState();
+    window.location.reload(true);
 };
 
 const closePeerConnectionAndResetState = () => {
@@ -269,7 +271,6 @@ const closePeerConnectionAndResetState = () => {
         // enable video and audio if new call
         store.getState().localStream.getVideoTracks()[0].enabled = true;
         store.getState().localStream.getAudioTracks()[0].enabled = true;
-        console.log('awawaw')
        
     }
     connectedUserDetails = null;

@@ -80,8 +80,8 @@ const handleRejectCall = () => {
 };
 const handleRejectCallOutGoing = () => {
   // Perform the necessary actions when the call is rejected
-  // console.log('Call rejected Caller');
-  // webRTC.callingDialogRejectCallHandler();
+  console.log('Call rejected Caller');
+  webRTC.callingDialogRejectCallHandler();
   setShowOutgoingCall(false);
 };
 
