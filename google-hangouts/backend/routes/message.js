@@ -27,17 +27,26 @@ router.post('/messages', (req, res) => {
     });
 });
 
+const incomingMessages = []
+
 router.post('/incoming', (req, res) => {
     const from = req.body.From;
     const body = req.body.Body;
+    const timestamp = new Date().toLocaleString();
         // Log the incoming message details
     console.log(`Received message from: ${from}`);
     console.log(`Message content: ${body}`);
+    console.log(`Timestamp: ${timestamp}`);
     
-    
+      // Add the message to the array
+  incomingMessages.push({ from, body, timestamp });
+
     res.sendStatus(200); // Send a successful response to Twilio
   });
 
-
+// Route to get incoming messages with timestamps
+router.get('/incoming', (req, res) => {
+  res.json({ messages: incomingMessages });
+});
 
 export default router; 

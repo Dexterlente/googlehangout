@@ -7,6 +7,7 @@ import Chat from './components/Chat'
 const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 import MainPage from './pages/MainPage'
+import SendMessage from './pages/SendMessage';
 
 
 
@@ -20,6 +21,7 @@ function App() {
                   <Route path='/chat' element={<Chat />} />
                   <Route path="/Registration" element={<RegistrationPage />} />
                   <Route path="/Login" element={<LoginPage />} /> 
+                  <Route path="/send" element={<SendMessage />} />
                 <Route />             
             </Routes>
       </div>
