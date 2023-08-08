@@ -9,9 +9,12 @@ import Logout from "./routes/logout.js";
 import mongoose from "mongoose";
 import http from 'http';
 import createSocketServer from './socketServer.js';
+import pino from 'express-pino-logger';
+import message from './routes/message.js';
 
 dotenv.config();
 const app = express();
+const logger = pino();
 app.use(cors());
 const server = http.createServer(app);
 const port = process.env.PORT || 4000;
@@ -21,14 +24,15 @@ const mongoURI = process.env.MONGOURI
 // Middleware
 app.use(express.json());
 // app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(express.urlencoded({ extended: false }));
+app.use(logger);
+// app.use(routes);
 
 // Routes
 app.use("/", authRoutes);
 app.use("/", Registration);
 app.use("/", Logout);
-
+app.use('/', message);
 
 // Create the Socket.IO server
 const io = createSocketServer(server,  {
