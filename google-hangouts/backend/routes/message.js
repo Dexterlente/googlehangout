@@ -49,4 +49,30 @@ router.get('/incoming', (req, res) => {
   res.json({ messages: incomingMessages });
 });
 
+router.post('/make-call', async (req, res) => {
+  const { to, from } = req.body;
+
+  try {
+    const call = await client.calls.create({
+      to,
+      from,
+      twiml: '<Response><Say>Hello! This is a test call from Twilio.</Say></Response>',
+    });
+    res.json({ success: true, callSid: call.sid });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+});
+
+
+router.post('/inbound', (req, res) => {
+  const twiml = new twilio.twiml.VoiceResponse();
+  twiml.say('Thank you for calling!');
+
+  res.type('text/xml');
+  res.send(twiml.toString());
+});
+
+
 export default router; 
