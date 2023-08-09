@@ -1,6 +1,11 @@
 import express, { Router } from 'express'; // Import the Router class directly
 import twilio from 'twilio'; // Import the entire twilio module
 import dotenv from 'dotenv';
+// import { twilioClient } from './twilio-client';
+// import { VoiceResponse } from 'twilio/lib/twiml/VoiceResponse';
+import socketIOClient from 'socket.io-client';
+
+
 dotenv.config();
 
 const client = twilio(
@@ -54,21 +59,27 @@ router.post('/make-call', async (req, res) => {
   const from = process.env.TWILIO_PHONE_NUMBER;
 
   try {
-    const twiml = `
-    <Response>
-      <Dial>
-        <Number>${to}</Number> <!-- Replace with recipient's phone number -->
-      </Dial>
-    </Response>
-  `;
+  //   const twiml = `
+  //   <Response>
+  //     <Dial>
+  //       <Number>${to}</Number> <!-- Replace with recipient's phone number -->
+  //     </Dial>
+  //   </Response>
+  // `;
+  const socket = socketIOClient('http://localhost:5000');
+  const twiml = new twilio.twiml.VoiceResponse();
+  const dial = twiml.dial();
+  dial.number(to); // Dial the recipient's number
+
+  socket.emit('startAudioStreaming', { to });
+
 
     const call = await client.calls.create({
       to,
       from,
-      twiml,
+      twiml: twiml.toString(),
     });
-
-
+    //return to client
     res.json({ success: true, callSid: call.sid });
   } catch (error) {
     console.error(error);

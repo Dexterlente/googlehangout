@@ -55,6 +55,11 @@ function createSocketServer(server) {
         }
 
       });
+      //voice call
+      socket.on('audioData', (data) => {
+        // Broadcast the received audio data to all connected clients
+        io.emit('audioData', data);
+      });
 
       socket.on('user-hanged-up', (data) => {
         const { connectedUserSocketId } = data;
