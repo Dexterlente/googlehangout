@@ -50,14 +50,25 @@ router.get('/incoming', (req, res) => {
 });
 
 router.post('/make-call', async (req, res) => {
-  const { to, from } = req.body;
+  const { to } = req.body;
+  const from = process.env.TWILIO_PHONE_NUMBER;
 
   try {
+    const twiml = `
+    <Response>
+      <Dial>
+        <Number>${to}</Number> <!-- Replace with recipient's phone number -->
+      </Dial>
+    </Response>
+  `;
+
     const call = await client.calls.create({
       to,
       from,
-      twiml: '<Response><Say>Hello! This is a test call from Twilio.</Say></Response>',
+      twiml,
     });
+
+
     res.json({ success: true, callSid: call.sid });
   } catch (error) {
     console.error(error);

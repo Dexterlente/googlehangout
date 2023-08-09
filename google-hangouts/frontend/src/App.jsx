@@ -8,6 +8,7 @@ const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 import MainPage from './pages/MainPage'
 import SendMessage from './pages/SendMessage';
+import OutboundCall from './pages/OutboundCall'
 
 
 
@@ -22,6 +23,7 @@ function App() {
                   <Route path="/Registration" element={<RegistrationPage />} />
                   <Route path="/Login" element={<LoginPage />} /> 
                   <Route path="/send" element={<SendMessage />} />
+                  <Route path="/outbound" element={<OutboundCall />} />
                 <Route />             
             </Routes>
       </div>
