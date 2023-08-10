@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+// import Twilio from 'twilio-client';
 import API_ENDPOINT from '../config.jsx'
 
 function IncomingCall() {
@@ -9,7 +11,7 @@ function IncomingCall() {
     
     const makeDelayedCall = async () => {
       try {
-        const response = await fetch(`${API_ENDPOINT}//inbound`, {
+        const response = await fetch(`${API_ENDPOINT}/inbound`, {
           method: 'POST',
         });
 
