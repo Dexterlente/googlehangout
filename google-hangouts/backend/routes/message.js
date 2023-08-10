@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 // import { VoiceResponse } from 'twilio/lib/twiml/VoiceResponse';
 import socketIOClient from 'socket.io-client';
 
-
 dotenv.config();
 
 const client = twilio(
@@ -59,32 +58,22 @@ router.post('/make-call', async (req, res) => {
   const from = process.env.TWILIO_PHONE_NUMBER;
 
   try {
-  //   const twiml = `
-  //   <Response>
-  //     <Dial>
-  //       <Number>${to}</Number> <!-- Replace with recipient's phone number -->
-  //     </Dial>
-  //   </Response>
-  // `;
-  const socket = socketIOClient('http://localhost:5000');
-  const twiml = new twilio.twiml.VoiceResponse();
-  const dial = twiml.dial();
-  dial.number(to); // Dial the recipient's number
+    const socket = socketIOClient('http://localhost:5000');
+    const twiml = new twilio.twiml.VoiceResponse();
+    const dial = twiml.dial();
+    dial.number(to); // Dial the recipient's number
 
-  socket.emit('startAudioStreaming', { to });
-
-
-    const call = await client.calls.create({
-      to,
-      from,
-      twiml: twiml.toString(),
-    });
-    //return to client
-    res.json({ success: true, callSid: call.sid });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.message });
-  }
+      const call = await client.calls.create({
+        to,
+        from,
+        twiml: twiml.toString(),
+      });
+      //return to client
+      res.json({ success: true, callSid: call.sid });
+    } catch (error) {
+      console.error(error);
+      res.json({ success: false, error: error.message });
+    }
 });
 
 
@@ -92,9 +81,65 @@ router.post('/inbound', (req, res) => {
   const twiml = new twilio.twiml.VoiceResponse();
   twiml.say('Thank you for calling!');
 
+    // Retrieve incoming phone number from the request
+    const incomingNumber = req.body.From;
+
+    console.log('Incoming number:', incomingNumber);
+    emitIncomingCall(io, { incomingNumber });
+
   res.type('text/xml');
   res.send(twiml.toString());
 });
 
+router.get('/generate-token', (req, res) => {
+  console.log('TWILIO_ACCOUNT_SID:', process.env.TWILIO_ACCOUNT_SID);
+  console.log('TWILIO_API_KEY:', process.env.TWILIO_API_KEY);
+  console.log('TWILIO_API_SECRET:', process.env.TWILIO_API_SECRET);
+  console.log('TWIML_APP_SID:', process.env.TWIML_APP_SID);
+
+  const AccessToken = twilio.jwt.AccessToken;
+  const VoiceGrant = AccessToken.VoiceGrant;
+
+  const twilioAccountSid  = process.env.TWILIO_ACCOUNT_SID;
+  const twilioApiKey  = process.env.TWILIO_API_KEY;
+  const twilioApiSecret  = process.env.TWILIO_API_SECRET;
+  const appSid = process.env.TWIML_APP_SID;
+  console.log(twilioAccountSid)
+  const identity = 'user';
+
+  const voiceGrant = new VoiceGrant({
+    outgoingApplicationSid: appSid,
+    incomingAllow: true,
+  });
+
+  const token = new AccessToken(
+    twilioAccountSid,
+    twilioApiKey,
+    twilioApiSecret,
+    {identity: identity}
+  );
+  console.log(token)
+  token.addGrant(voiceGrant);
+  console.log(token.toJwt());
+  const payloadtoken = token.toJwt();
+  res.json({ payloadtoken });
+
+});
+
+router.get('/print-env', (req, res) => {
+  const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+  const twilioApiKey = process.env.TWILIO_API_KEY;
+  const twilioApiSecret = process.env.TWILIO_API_SECRET;
+  const twimlAppSid = process.env.TWIML_APP_SID;
+
+  const envVariables = {
+    TWILIO_ACCOUNT_SID: twilioAccountSid,
+    TWILIO_API_KEY: twilioApiKey,
+    TWILIO_API_SECRET: twilioApiSecret,
+    TWIML_APP_SID: twimlAppSid,
+  };
+
+  res.json(envVariables);
+});
 
 export default router; 
