@@ -31,14 +31,16 @@ const fetchMessages = () => {
     }, []);
 
   return (
-    <div>
-      <h2>Incoming Messages</h2>
-      <ul>
+    <div className='mt-4'>
+      <h2 className='text-xl font-semibold mb-2'>Incoming Messages</h2>
+      <ul className='bg-gray-100 p-4 rounded shadow'>
         {messages.map((message, index) => (
-          <li key={index}>
-            <strong>From:</strong> {message.from} <br />
-            <strong>Message:</strong> {message.body} <br />
-            <strong>Timestamp:</strong> {message.timestamp}
+          <li key={index} className='mb-4'>
+            <strong className='block text-blue-500 font-medium'>From:</strong> 
+            <span className='ml-2'>{message.from} </span><br />
+            <strong className='block text-blue-500 font-medium'>Message:</strong>
+             <span className='ml-2'>{message.body} </span><br />
+             <span className='ml-2'>{message.timestamp}</span>
           </li>
         ))}
       </ul>
