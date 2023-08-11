@@ -45,6 +45,14 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
         webRTC.handlePreOffer(data, setShowIncomingCall, onCallTypeReceived);
         console.log(data);
       });
+      
+      socket.on('incoming-call', data => {
+        try {
+            console.log('Received incoming call:', data.number);
+        } catch (error) {
+            console.error('Error handling incoming call:', error);
+        }
+    });
 
     socket.on("pre-offer-answer", (data) => {
       webRTC.handlePreOfferAnswer(data, setShowOutgoingCall, setCallAccepted);

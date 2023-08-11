@@ -37,8 +37,12 @@ app.use('/', message);
 // Create the Socket.IO server
 const io = createSocketServer(server,  {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
   },
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello from the server!');
 });
 
 async function connectToMongo() {

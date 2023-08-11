@@ -13,7 +13,10 @@ const OutboundCall = () => {
 
   useEffect(() => {
     // Connect to WebSocket server
-    const socket = io('http://localhost:5173');
+    // const socket = io('http://localhost:5173');
+    const socket = io(`${API_ENDPOINT}`, {
+      transports: ['websocket'],
+    });
     setSocket(socket);
 
     // Fetch Twilio token from the backend
@@ -98,6 +101,7 @@ const OutboundCall = () => {
     if (twilioDevice) {
       twilioDevice.disconnectAll();
       setCalling(false);
+      setAudioContext(null);
       console.log('hangup');
     }
   };

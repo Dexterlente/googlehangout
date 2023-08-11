@@ -1,11 +1,12 @@
 import express, { Router } from 'express'; // Import the Router class directly
 import twilio from 'twilio'; // Import the entire twilio module
 import dotenv from 'dotenv';
-// import { twilioClient } from './twilio-client';
-// import { VoiceResponse } from 'twilio/lib/twiml/VoiceResponse';
 import socketIOClient from 'socket.io-client';
+import createSocketServer  from '../socketServer.js'
+
 
 dotenv.config();
+const io = createSocketServer();
 
 const client = twilio(
   process.env.TWILIO_ACCOUNT_SID,
@@ -58,7 +59,7 @@ router.post('/make-call', async (req, res) => {
   const from = process.env.TWILIO_PHONE_NUMBER;
 
   try {
-    const socket = socketIOClient('http://localhost:5000');
+    // const socket = socketIOClient('http://localhost:5000');
     const twiml = new twilio.twiml.VoiceResponse();
     const dial = twiml.dial();
     dial.number(to); // Dial the recipient's number
@@ -83,9 +84,9 @@ router.post('/inbound', (req, res) => {
 
     // Retrieve incoming phone number from the request
     const incomingNumber = req.body.From;
-
     console.log('Incoming number:', incomingNumber);
-    emitIncomingCall(io, { incomingNumber });
+    console.log('Emitting incoming-call event:', { number: incomingNumber });
+    io.emit('incoming-call', { number: incomingNumber });
 
   res.type('text/xml');
   res.send(twiml.toString());
