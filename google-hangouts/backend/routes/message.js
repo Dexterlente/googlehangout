@@ -80,13 +80,11 @@ router.post('/make-call', async (req, res) => {
 
 router.post('/inbound', (req, res) => {
   const twiml = new twilio.twiml.VoiceResponse();
+  const dial = twiml.dial();
   twiml.say('Thank you for calling!');
-
-    // Retrieve incoming phone number from the request
     const incomingNumber = req.body.From;
     console.log('Incoming number:', incomingNumber);
-    console.log('Emitting incoming-call event:', { number: incomingNumber });
-    io.emit('incoming-call', { number: incomingNumber });
+  dial.client('user-client');
 
   res.type('text/xml');
   res.send(twiml.toString());
