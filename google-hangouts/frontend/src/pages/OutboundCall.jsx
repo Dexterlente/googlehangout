@@ -13,7 +13,6 @@ const OutboundCall = () => {
 
   useEffect(() => {
     // Connect to WebSocket server
-    // const socket = io('http://localhost:5173');
     const socket = io(`${API_ENDPOINT}`, {
       transports: ['websocket'],
     });
@@ -107,19 +106,24 @@ const OutboundCall = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Real-time Audio Communication</h1>
+    <div className="bg-gray-100 p-8">
+      <h1 className="text-2xl font-bold mb-4">Real-time Audio Communication</h1>
       <input
         type="text"
         placeholder="Enter phone number"
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded-md mb-4"
       />
       <br />
       {!calling ? (
-        <button onClick={startCall}>Start Call</button>
+        <button onClick={startCall} 
+        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+        >Start Call</button>
       ) : (
-        <button onClick={hangUp}>Hang Up</button>
+        <button onClick={hangUp}
+        className="bg-red-500 text-white px-4 py-2 rounded-md"
+        >Hang Up</button>
       )}
     </div>
   );
