@@ -1,5 +1,5 @@
 import { useState } from "react";
-import VideoCall from "./Video";
+import VideoCall from "./VideoCall";
 
 function MainGroup() {
   const [inCall, setInCall] = useState(false);

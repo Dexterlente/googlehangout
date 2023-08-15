@@ -11,6 +11,7 @@ import NavBar from './components/NavBar'
 import SendMessage from './pages/SendMessage';
 import OutboundCall from './pages/OutboundCall'
 import IncomingCall from './pages/IncomingCall'
+import MainGroup from './group/MainGroup'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                   <Route path="/send" element={<SendMessage />} />
                   <Route path="/outbound" element={<OutboundCall />} />
                   <Route path="/comming" element={<IncomingCall />} />
+                  <Route path="/maingroup" element={<MainGroup />} />
                 </Route>             
             </Routes>
       </div>

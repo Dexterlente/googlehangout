@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { config, useClient, useMicrophoneAndCameraTracks, channelName } from "./settings.js";
+import { config, useClient, useMicrophoneAndCameraTracks, channelName } from "./settings.jsx";
 import Video from "./Video";
 import Controls from "./Controls";
 

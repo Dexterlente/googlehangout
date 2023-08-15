@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useClient } from "./settings";
-import MicIcon from "@material-ui/icons/Mic";
-import MicOffIcon from "@material-ui/icons/MicOff";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import VideocamOffIcon from "@material-ui/icons/VideocamOff";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { MdMic, MdMicOff } from "react-icons/md";
+import { IoVideocam, IoVideocamOff } from "react-icons/io5";
+import { FiLogOut } from "react-icons/fi";
+
 
 export default function Controls(props) {
   const client = useClient();
@@ -42,7 +41,7 @@ export default function Controls(props) {
         } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
         onClick={() => mute("audio")}
       >
-        {trackState.audio ? <MicIcon /> : <MicOffIcon />}
+        {trackState.audio ? <MdMic /> : <MdMicOff />}
       </button>
       <button
         className={`${
@@ -50,14 +49,14 @@ export default function Controls(props) {
         } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
         onClick={() => mute("video")}
       >
-        {trackState.video ? <VideocamIcon /> : <VideocamOffIcon />}
+        {trackState.video ? <IoVideocam /> : <IoVideocamOff />}
       </button>
       <button
         className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
         onClick={() => leaveChannel()}
       >
         Leave
-        <ExitToAppIcon />
+        <FiLogOut />
       </button>
     </div>
   );
