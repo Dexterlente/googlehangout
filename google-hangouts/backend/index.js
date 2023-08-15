@@ -22,7 +22,7 @@ app.use(cors({ origin: '*' }));
 const server = http.createServer(app);
 const groupServer = http.createServer();
 const port = process.env.PORT || 4000;
-const groupPort = process.env.GROUPPORT || 8001;
+const groupPort = process.env.GROUPPORT || 8080;
 //mongo local db
 const mongoURI = process.env.MONGOURI
 

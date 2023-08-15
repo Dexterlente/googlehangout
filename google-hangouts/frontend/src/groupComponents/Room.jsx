@@ -5,10 +5,7 @@ import createSocket from "./SocketProvider";
 
 const RoomPage = () => {
   // const socket = useSocket();
-  const socket = createSocket("http://localhost:8000", {
-    // transports: ['websocket'],
-    // withCredentials: true,
-  });
+  const socket = createSocket("http://localhost:8000");
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();

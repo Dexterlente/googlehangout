@@ -6,11 +6,7 @@ const LobbyScreen = () => {
 
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
-  const socket = createSocket("http://localhost:8000", {
-    transports: ['websocket'],
-    // transports: ['websocket', 'polling', 'webtransport'],
-    // withCredentials: true,
-  });
+  const socket = createSocket("http://localhost:8000");
   // const socket = useSocket();
   const navigate = useNavigate();
 

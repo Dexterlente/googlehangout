@@ -23,9 +23,9 @@ const useSocket = (dispatch, setShowIncomingCall, setShowOutgoingCall, setCallAc
     const socket = io(`${API_ENDPOINT}`, {
       // OMG I LOOK INTO THIS PROBLEM FOR HOURS MY GOD
       transports: ['websocket'],
-      // auth: {
-      //   token: authToken,
-      // },
+      auth: {
+        token: authToken,
+      },
     });
     // webRTC.getLocalPreview(getLocalPreview);
     // Handle socket events

@@ -8,8 +8,7 @@ function createGroupServer(groupServer, corsOptions) {
 
   // Socket.IO connection handling
   groupIo.on('connection', (socket) => {
-    console.log('group server connected')
-    console.log(`Group Socket is Connected`, socket.id);
+    console.log(`Group server socket is Connected`, socket.id);
 
     socket.on("room:join", (data) => {
       const { email, room } = data;
