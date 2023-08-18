@@ -58,7 +58,10 @@ const RoomRTC = () => {
           joinRoomInit();
 
       }, [navigate, roomId, uid]);
-    
+      //
+      const handleUserPublished = async (user, mediaType) => { 
+      
+      };
 
       return (
         <>
