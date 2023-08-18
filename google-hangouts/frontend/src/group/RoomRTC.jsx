@@ -16,7 +16,8 @@ const RoomRTC = () => {
     const [localTracks, setLocalTracks] = useState([]);
     // let localTracks = []
     let remoteUsers = {}
-    let client;
+    const [client, setClient] = useState(null);
+
     useEffect(() => {
 
       const storedUid = sessionStorage.getItem('uid');
@@ -42,24 +43,18 @@ const RoomRTC = () => {
           }
 
           let joinRoomInit = async () => {   
-            const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
-            await client.join(APP_ID, roomId, token, uid);
+            const newClient  = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
+            await newClient .join(APP_ID, roomId, token, uid);
+            // so can be access anywhere 
+            setClient(newClient);
             const newLocalTracks  = await AgoraRTC.createMicrophoneAndCameraTracks();
 
           //  await joinStream();
            setShowVideoPlayer(true);
            setLocalTracks(newLocalTracks);
-           await client.publish(newLocalTracks);
+           await newClient.publish(newLocalTracks);
           };
 
-          //it will ask user if first time to the side to access microphone and cam
-          // let joinStream = async () => {
-          //   const newLocalTracks  = await AgoraRTC.createMicrophoneAndCameraTracks();
-          //     console.log('Local tracks: IS PRINTING!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', newLocalTracks );
-          //     setLocalTracks(newLocalTracks);
-
-          //   await client.publish(newLocalTracks);  
-          // }
           joinRoomInit();
 
       }, [navigate, roomId, uid]);
