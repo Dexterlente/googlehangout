@@ -1,5 +1,6 @@
 import { AgoraVideoPlayer } from "agora-rtc-react";
 import { useState, useEffect } from "react";
+import VideoPlayer from "./VideoPlayer";
 
 export default function Video(props) {
   const { users, tracks } = props;
@@ -12,7 +13,7 @@ export default function Video(props) {
   return (
     <div className="flex h-full">
       <div className={`w-${gridSpacing}`}>
-        <AgoraVideoPlayer
+        <VideoPlayer
           videoTrack={tracks[1]}
           className="h-full w-full"
         />
@@ -22,7 +23,7 @@ export default function Video(props) {
           if (user.videoTrack) {
             return (
               <div className={`w-${gridSpacing}`} key={user.uid}>
-                <AgoraVideoPlayer
+                <VideoPlayer
                   videoTrack={user.videoTrack}
                   className="h-full w-full"
                 />

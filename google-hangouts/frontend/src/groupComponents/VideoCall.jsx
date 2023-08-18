@@ -23,6 +23,7 @@ export default function VideoCall(props) {
           user.audioTrack.play();
         }
       });
+      console.log("Video Component - Tracks:", tracks);
 
       client.on("user-unpublished", (user, mediaType) => {
         if (mediaType === "audio") {

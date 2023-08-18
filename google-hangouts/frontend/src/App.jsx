@@ -11,7 +11,9 @@ import NavBar from './components/NavBar'
 import SendMessage from './pages/SendMessage';
 import OutboundCall from './pages/OutboundCall'
 import IncomingCall from './pages/IncomingCall'
-import MainGroup from './group/MainGroup'
+import LobbyRoom from './group/LobbyRoom'
+import RoomRTC from './group/RoomRTC'
+import Simple from './group/Simple'
 
 
 function App() {
@@ -36,7 +38,10 @@ function App() {
                   <Route path="/send" element={<SendMessage />} />
                   <Route path="/outbound" element={<OutboundCall />} />
                   <Route path="/comming" element={<IncomingCall />} />
-                  <Route path="/maingroup" element={<MainGroup />} />
+                  <Route path="/lobby" element={<LobbyRoom />} />
+                  <Route path="/room/:roomId" element={<RoomRTC />} />
+                  <Route path="/simple" element={<Simple />} />
+                  {/* <Route path="/room/:roomId" component={RoomRTC} /> */}
                 </Route>             
             </Routes>
       </div>
